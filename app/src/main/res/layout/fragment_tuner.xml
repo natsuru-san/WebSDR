@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Tuner">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/ShowBtn"
+                style="@android:style/Widget.Holo.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/Settings"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/TuneFreq"
+                android:layout_width="192dp"
+                android:layout_height="640dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Constraint"
+                app:layout_constraintStart_toStartOf="@+id/Constraint" />
+
+            <ImageButton
+                android:id="@+id/Arrow"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="38dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/currentFreq"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/Constraint"
+                app:layout_constraintStart_toEndOf="@+id/TuneFreq"
+                app:layout_constraintTop_toTopOf="@+id/TuneFreq"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <RadioGroup
+                android:id="@+id/ModulationGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/DownFreqButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/UpFreqButton">
+
+                <RadioButton
+                    android:id="@+id/FMButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/FM"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
+
+                <RadioButton
+                    android:id="@+id/AMButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/AM"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
+
+                <RadioButton
+                    android:id="@+id/LSBButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/LSB"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/USBButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/USB"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/CWButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/amiko"
+                    android:text="@string/CW"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </RadioGroup>
+
+            <ImageButton
+                android:id="@+id/UpFreqButton"
+                style="@android:style/Widget.Holo.ImageButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="32dp"
+                android:background="#FF018786"
+                android:contentDescription="@string/currentFreq"
+                android:saveEnabled="true"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/arrow_up_float"
+                app:layout_constraintBottom_toTopOf="@+id/Arrow"
+                app:layout_constraintStart_toEndOf="@+id/TuneFreq"
+                tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
+
+            <ImageButton
+                android:id="@+id/DownFreqButton"
+                style="@android:style/Widget.Holo.ImageButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:background="#FF018786"
+                android:contentDescription="@string/currentFreq"
+                android:saveEnabled="true"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/arrow_down_float"
+                app:layout_constraintStart_toEndOf="@+id/TuneFreq"
+                app:layout_constraintTop_toBottomOf="@+id/Arrow"
+                tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/UpBorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/FreqInstance"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/UpFreqButton"
+                app:layout_constraintEnd_toEndOf="@+id/UpFreqButton"
+                app:layout_constraintStart_toEndOf="@+id/TuneFreq" />
+
+            <TextView
+                android:id="@+id/DownBorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/FreqInstance"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/UpBorder"
+                app:layout_constraintStart_toStartOf="@+id/UpBorder"
+                app:layout_constraintTop_toBottomOf="@+id/DownFreqButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/Settings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Constraint"
+            tools:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/transparent"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/HideBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/Settings"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+                    tools:src="@color/transparent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar2"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@color/grey"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="?attr/actionBarTheme"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/AutogainBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="?attr/colorAccent"
+                        android:checked="true"
+                        android:text="@string/Autogain"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="@+id/SquelchBox"
+                        app:layout_constraintTop_toBottomOf="@+id/SquelchBox" />
+
+                    <CheckBox
+                        android:id="@+id/AutonotchBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:buttonTint="?attr/colorAccent"
+                        android:checked="false"
+                        android:text="@string/Autonotch"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/NoiseBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="?attr/colorAccent"
+                        android:checked="false"
+                        android:text="@string/NoiseReduction"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@+id/AutonotchBox"
+                        app:layout_constraintTop_toBottomOf="@+id/AutonotchBox" />
+
+                    <CheckBox
+                        android:id="@+id/SquelchBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:buttonTint="?attr/colorAccent"
+                        android:checked="false"
+                        android:text="@string/Squelch"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/AutonotchBox"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/MinGain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/MinGain"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+                        app:layout_constraintTop_toTopOf="@+id/GainSeek" />
+
+                    <SeekBar
+                        android:id="@+id/GainSeek"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:indeterminate="false"
+                        android:max="30"
+                        android:min="-100"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:progressTint="?attr/colorAccent"
+                        android:thumb="@android:drawable/presence_online"
+                        app:layout_constraintEnd_toStartOf="@+id/MaxGain"
+                        app:layout_constraintStart_toEndOf="@+id/MinGain"
+                        app:layout_constraintTop_toBottomOf="@+id/Gain" />
+
+                    <TextView
+                        android:id="@+id/Gain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/Gain"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/AutogainBox"
+                        app:layout_constraintStart_toStartOf="@+id/NoiseBox"
+                        app:layout_constraintTop_toBottomOf="@+id/AutogainBox" />
+
+                    <TextView
+                        android:id="@+id/MaxGain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/MaxGain"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+                        app:layout_constraintTop_toTopOf="@+id/GainSeek" />
+
+                    <TextView
+                        android:id="@+id/Agchang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/Agchang"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/GainSeek"
+                        app:layout_constraintStart_toEndOf="@+id/MinGain"
+                        app:layout_constraintTop_toBottomOf="@+id/GainSeek" />
+
+                    <SeekBar
+                        android:id="@+id/AgchangSeek"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:indeterminate="false"
+                        android:max="4"
+                        android:min="0"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:progressTint="?attr/colorAccent"
+                        android:thumb="@android:drawable/presence_online"
+                        app:layout_constraintEnd_toEndOf="@+id/GainSeek"
+                        app:layout_constraintStart_toStartOf="@+id/GainSeek"
+                        app:layout_constraintTop_toBottomOf="@+id/Agchang" />
+
+                    <TextView
+                        android:id="@+id/AgchangMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AgchangMin"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/AgchangSeek"
+                        app:layout_constraintStart_toStartOf="@+id/MinGain"
+                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
+
+                    <TextView
+                        android:id="@+id/AgchangMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AgchangMax"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/AgchangSeek"
+                        app:layout_constraintEnd_toEndOf="@+id/MaxGain"
+                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

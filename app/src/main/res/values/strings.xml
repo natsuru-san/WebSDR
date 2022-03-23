@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">WebSDR</string>
+    <string name="currentFreq">Current freq.</string>
+    <string name="AM">AM</string>
+    <string name="FM">FM</string>
+    <string name="USB">USB</string>
+    <string name="LSB">LSB</string>
+    <string name="CW">CW</string>
+    <string name="Squelch">Squelch</string>
+    <string name="Autonotch">Autonotch</string>
+    <string name="NoiseReduction">Noise reduction</string>
+    <string name="Gain">Gain</string>
+    <string name="Autogain">Autogain</string>
+    <string name="Agchang">Agchang</string>
+    <string name="AgchangMax">4</string>
+    <string name="AgchangMin">0</string>
+    <string name="MaxGain">+30</string>
+    <string name="MinGain">-100</string>
+    <string name="khz"> KHz</string>
+    <string name="Settings">Settings</string>
+    <string name="FreqInstance">0.0</string>
+    <string name="FreqSpace">-------------------------------------------------</string>
 </resources>

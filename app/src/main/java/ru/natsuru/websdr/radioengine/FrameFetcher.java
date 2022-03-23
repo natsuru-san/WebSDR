@@ -11,14 +11,14 @@ import java.net.URISyntaxException;
 
 @SuppressWarnings({"FieldCanBeLocal"})
 public class FrameFetcher extends Thread implements Runnable{
-    private final String streamKey = "3gcg/CaPz3r5baKMyg7W8Q==";
+    private final String streamKey = "c23YG8a5cE5Dyoj2hdiLBQ==";
     private final String baseUrl = "websdr.ewi.utwente.nl:8901";
     private final String streamAdditional = "/~~stream";
-    private double freq = 1008.00;
+    private double freq = 1008.000;
     private int band = 0;
     private int mode = 1;
-    private double maxBorder = 4.5;
-    private double minBorder = maxBorder * (-1);
+    private double maxBorder = (-4.5);
+    private double minBorder = (4.5);
     private int gain = 10000;
     private int noisereduse = 0;
     private double agchang = 0.0;
@@ -31,7 +31,7 @@ public class FrameFetcher extends Thread implements Runnable{
         this.ai = ai;
     }
     //Ставим частоты, тип модуляции и прочее
-    public void setParams(double freq, int band, double minBorder, double maxBorder, int mode){
+    protected void setParams(double freq, int band, double minBorder, double maxBorder, int mode){
         this.freq = freq;
         this.band = band;
         this.minBorder = minBorder;
@@ -40,7 +40,7 @@ public class FrameFetcher extends Thread implements Runnable{
         sendMessage();
     }
     //Регулируем параметры звука на стороне сервера
-    public void setSoundParams(int gain, int noisereduse, double agchang, int squelch, int autonotch){
+    protected void setSoundParams(int gain, int noisereduse, double agchang, int squelch, int autonotch){
         this.gain = gain;
         this.noisereduse = noisereduse;
         this.agchang = agchang;
@@ -49,7 +49,7 @@ public class FrameFetcher extends Thread implements Runnable{
         sendMessage();
     }
     private void init() throws IOException, URISyntaxException, WebSocketException {
-        //Создаём подписчиков на события веб-сокета
+        //Создаём подписчика на события веб-сокета
         streamWsl = new ListenerWS(ai).getListener();
         //Получаем сокеты
         streamWs = new InitWS(streamKey, baseUrl, streamAdditional, streamWsl).getWs();

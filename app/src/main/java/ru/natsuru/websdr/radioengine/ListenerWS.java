@@ -108,7 +108,7 @@ public class ListenerWS {
         public void onSendingHandshake(WebSocket websocket, String requestLine, List<String[]> headers) {
         }
     };
-    public WebSocketListener getListener(){
+    protected WebSocketListener getListener(){
         return wsl;
     }
 }

@@ -13,6 +13,7 @@ public class MainInit {
     private final AudioHolder audioHolder;
     private final FrameFetcher ff;
     public MainInit(AudioTrack audioTrack){
+        audioTrack.play();
         audioHolder = new AudioHolder(audioTrack);
         ff = new FrameFetcher(this);
         ff.start();
@@ -23,7 +24,10 @@ public class MainInit {
     public void setAudioParams(int gain, int noisereduse, double agchang, int squelch, int autonotch){
         ff.setSoundParams(gain, noisereduse, agchang, squelch, autonotch);
     }
-    public void prepareArr(byte[] binary){
+    protected void prepareArr(byte[] binary){
         audioHolder.playOutput(binary);
+    }
+    public void setDecoder(boolean decoderType){
+        audioHolder.setDecoder(decoderType);
     }
 }

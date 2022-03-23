@@ -22,7 +22,7 @@ public class InitWS{
         ws.addHeader("Accept-Encoding", "gzip, deflate");
         ws.addHeader("Cache-Control", "no-cache");
         ws.addHeader("Connection", "keep-alive, Upgrade");
-        ws.addHeader("Cookie", "ID=61ad12a58ea4; view=2");
+        ws.addHeader("Cookie", "ID=61ad12a58ea4; view=2; usejava=nn");
         ws.addHeader("DNT", "1");
         ws.addHeader("Host", baseUrl);
         ws.addHeader("Origin", "http://" + baseUrl);
@@ -33,7 +33,7 @@ public class InitWS{
         ws.addHeader("Upgrade", "websocket");
         ws.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15");
     }
-    public WebSocket getWs(){
+    protected WebSocket getWs(){
         return ws;
     }
 }
