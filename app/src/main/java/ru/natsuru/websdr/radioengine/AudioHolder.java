@@ -6,24 +6,9 @@ import androidx.annotation.NonNull;
 
 public class AudioHolder {
     private final AudioTrack audiotrack;
-    private int play = 0;
     private boolean decoderType = false;
-    private byte[] middle;
     public AudioHolder(AudioTrack audiotrack){
         this.audiotrack = audiotrack;
-    }
-    //Объединяем байтовые массивы
-    private byte[] concatArrays(byte[] a, byte[] b){
-        if(a == null) {
-            return b;
-        }
-        if(b == null){
-            return a;
-        }
-        byte[] result = new byte[a.length + b.length];
-        System.arraycopy(a, 0, result, 0, a.length);
-        System.arraycopy(b, 0, result, a.length, b.length);
-        return result;
     }
     //A-law декодер; осуществляет "перегон" A-law в 16bit-signed PCM аудио
     //За декодеры спасибо Marc Sweetgall, выложившему его на языке C# в публичный доступ ^_^
@@ -77,23 +62,13 @@ public class AudioHolder {
     }
     //Приём байтового потока, преобразование и его запись в аудиобуфер
     protected void playOutput(@NonNull byte[] currentArray){
-        if(play < 16){
-            if(play == 0){
-                middle = null;
-            }
-            middle = concatArrays(middle, currentArray);
-            play++;
+        short[] decoded;
+        if(decoderType){
+            decoded = decodeUlaw(currentArray);
         }else{
-            play = 0;
-            //short[] decoded;
-            short[] decoded;
-            if(decoderType){
-                decoded = decodeUlaw(middle);
-            }else{
-                decoded = decodeAlaw(middle);
-            }
-            audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
+            decoded = decodeAlaw(currentArray);
         }
+        audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_NON_BLOCKING);
     }
     protected void setDecoder(boolean decoderType){
         this.decoderType = decoderType;

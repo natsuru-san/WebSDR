@@ -26,9 +26,9 @@ public class FrameFetcher extends Thread implements Runnable{
     private int autonotch = 0;
     private WebSocket streamWs;
     private WebSocketListener streamWsl;
-    private final MainInit ai;
-    public FrameFetcher(MainInit ai){
-        this.ai = ai;
+    private final MainInit mainInit;
+    public FrameFetcher(MainInit mainInit){
+        this.mainInit = mainInit;
     }
     //Ставим частоты, тип модуляции и прочее
     protected void setParams(double freq, int band, double minBorder, double maxBorder, int mode){
@@ -50,7 +50,7 @@ public class FrameFetcher extends Thread implements Runnable{
     }
     private void init() throws IOException, URISyntaxException, WebSocketException {
         //Создаём подписчика на события веб-сокета
-        streamWsl = new ListenerWS(ai).getListener();
+        streamWsl = new ListenerWS(mainInit).getListener();
         //Получаем сокеты
         streamWs = new InitWS(streamKey, baseUrl, streamAdditional, streamWsl).getWs();
         streamWs.connect();

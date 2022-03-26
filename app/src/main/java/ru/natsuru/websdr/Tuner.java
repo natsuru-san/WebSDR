@@ -1,3 +1,6 @@
+//Класс-UI для интерактивной настройки радио
+//Copyright by Natsuru-san
+
 package ru.natsuru.websdr;
 
 import android.annotation.SuppressLint;
@@ -18,11 +21,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class Tuner extends Fragment {
     private Main main;
     private View view;
     private ImageButton hideBtn;
     private Button showBtn;
+    private Button depth8kBtn;
+    private Button depth16kBtn;
     private RadioGroup modulationGroup;
     private RecyclerView tuneFreq;
     private ImageButton upFreqBtn;
@@ -33,9 +39,14 @@ public class Tuner extends Fragment {
     private CheckBox autoGain;
     private SeekBar gain;
     private SeekBar agchang;
+    private SeekBar volume;
     private FrameLayout settings;
     private TextView upBorder;
     private TextView downBorder;
+    private TextView gainValueView;
+    private TextView agchangValueView;
+    private TextView volumeValueView;
+    private TextView depthValueView;
     private int mode = 1;
     private int modulation = 0;
     private double minBorder = 4.5;
@@ -47,13 +58,12 @@ public class Tuner extends Fragment {
     private int autonotchState = 0;
     private int gainValue = 10000;
     private double agchangValue = 0;
-    private final double MAX_BORDER_LIMIT = 13;
-    private final double MIN_BORDER_LIMIT = -13;
+    private float volumeValue = 100f;
+    private final double MAX_BORDER_LIMIT = 6;
+    private final double MIN_BORDER_LIMIT = -6;
     private final double MAX_BORDER_LIMIT_OUT = 0;
     private final double MIN_BORDER_LIMIT_OUT = 0;
-    public Tuner() {
-        // Required empty public constructor
-    }
+    private boolean currentDepth = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tuner, container, false);
@@ -106,8 +116,15 @@ public class Tuner extends Fragment {
                     settings.setVisibility(View.VISIBLE);
                 }
                 break;
+            case R.id.DepthBtn8K:
+                currentDepth = true;
+                break;
+            case R.id.DepthBtn16K:
+                currentDepth = false;
+                break;
         }
         sendParams();
+        setDepth();
     };
     //Слушатель галочек
     @SuppressLint("NonConstantResourceId")
@@ -133,13 +150,17 @@ public class Tuner extends Fragment {
                     agchang.setEnabled(false);
                     gainValue = 10000;
                     agchangValue = 0;
+                    agchangValueView.setText(getString(R.string.AgchangValue));
+                    gainValueView.setText(getString(R.string.GainValue));
                 } else {
                     gain.setEnabled(true);
                     agchang.setEnabled(true);
                     gainValue = 0;
                     agchangValue = 0;
-                    gain.setProgress(0);
-                    agchang.setProgress(0);
+                    gain.setProgress(gainValue);
+                    agchang.setProgress((int) agchangValue);
+                    agchangValueView.setText(String.valueOf(agchangValue));
+                    gainValueView.setText(String.valueOf(gainValue));
                 }
                 break;
             case R.id.AutonotchBox:
@@ -163,6 +184,9 @@ public class Tuner extends Fragment {
                 case R.id.AgchangSeek:
                     agchangValue = progress;
                     break;
+                case R.id.VolumeSeek:
+                    volumeValue = progress;
+                    break;
             }
             sendAudioParams();
         }
@@ -179,17 +203,24 @@ public class Tuner extends Fragment {
         tuneFreq = view.findViewById(R.id.TuneFreq);
         upFreqBtn = view.findViewById(R.id.UpFreqButton);
         downFreqBtn = view.findViewById(R.id.DownFreqButton);
+        depth8kBtn = view.findViewById(R.id.DepthBtn8K);
+        depth16kBtn = view.findViewById(R.id.DepthBtn16K);
+        depthValueView = view.findViewById(R.id.DepthValue);
         noiseReduction = view.findViewById(R.id.NoiseBox);
         squelch = view.findViewById(R.id.SquelchBox);
         autoNotch = view.findViewById(R.id.AutonotchBox);
         autoGain = view.findViewById(R.id.AutogainBox);
         gain = view.findViewById(R.id.GainSeek);
         agchang = view.findViewById(R.id.AgchangSeek);
+        volume = view.findViewById(R.id.VolumeSeek);
         settings = view.findViewById(R.id.Settings);
         hideBtn = view.findViewById(R.id.HideBtn);
         showBtn = view.findViewById(R.id.ShowBtn);
         upBorder = view.findViewById(R.id.UpBorder);
         downBorder = view.findViewById(R.id.DownBorder);
+        gainValueView = view.findViewById(R.id.GainValue);
+        agchangValueView = view.findViewById(R.id.AgchangValue);
+        volumeValueView = view.findViewById(R.id.VolumeValue);
     }
     //Установка слушателей
     private void prepareView(){
@@ -202,10 +233,11 @@ public class Tuner extends Fragment {
         autoGain.setOnCheckedChangeListener(compoundListener);
         gain.setOnSeekBarChangeListener(seekListener);
         agchang.setOnSeekBarChangeListener(seekListener);
+        volume.setOnSeekBarChangeListener(seekListener);
         hideBtn.setOnClickListener(clickListener);
         showBtn.setOnClickListener(clickListener);
-        upBorder.setText(String.valueOf(maxBorder));
-        downBorder.setText(String.valueOf(minBorder));
+        depth8kBtn.setOnClickListener(clickListener);
+        depth16kBtn.setOnClickListener(clickListener);
     }
     //Настройка вьюшек
     private void startSetting(){
@@ -217,13 +249,20 @@ public class Tuner extends Fragment {
         autoGain.setChecked(true);
         gain.setEnabled(false);
         agchang.setEnabled(false);
+        volume.setEnabled(true);
+        gainValueView.setText(getString(R.string.GainValue));
+        agchangValueView.setText(getString(R.string.AgchangValue));
+        volumeValueView.setText(getString(R.string.VolumeValue));
         settings.setVisibility(View.INVISIBLE);
+        upBorder.setText(String.valueOf(maxBorder));
+        downBorder.setText(String.valueOf(minBorder));
+        depthValueView.setText(getString(R.string.Depth16k));
     }
     //Генерирование доступного диапазона частот для RecyclerView
     private void generateFreqInstances(){
         ArrayList<FreqStore> bands = new ArrayList<>();
         for(int i = 29000; i > -11; i--){
-            bands.add(new FreqStore((double) i));
+            bands.add(new FreqStore(i));
         }
         tuneFreq.setLayoutManager(new LinearLayoutManager(getContext()));
         tuneFreq.setAdapter(new FreqAdapter(getContext(), bands, this));
@@ -244,11 +283,25 @@ public class Tuner extends Fragment {
     }
     //Отправка аудио параметров
     private void sendAudioParams(){
-        main.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState);
+        main.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState, volumeValue / 100f);
+        volumeValueView.setText(String.valueOf((int)volumeValue));
+        if(gain.isEnabled() && agchang.isEnabled()){
+            gainValueView.setText(String.valueOf(gainValue));
+            agchangValueView.setText(String.valueOf((int)agchangValue));
+        }
     }
     //Отправка параметров серверу
     private void sendParams(){
         main.sendParams(freq, 0, minBorder, maxBorder, modulation);
+    }
+    //Установка частоты дискретизации; нужно, поскольку сервер отдаёт поток с разной частотой
+    private void setDepth(){
+        main.setAudioMode(currentDepth);
+        if(currentDepth){
+            depthValueView.setText(getString(R.string.Depth8k));
+        }else{
+            depthValueView.setText(getString(R.string.Depth16k));
+        }
     }
     //Режим модуляции
     private void setMode(){
@@ -257,31 +310,26 @@ public class Tuner extends Fragment {
                 modulation = 4;
                 minBorder = -5;
                 maxBorder = 5;
-                main.setAudioMode(true);
                 break;
             case 1:
                 modulation = 1;
                 minBorder = -4.5;
                 maxBorder = 4.5;
-                main.setAudioMode(false);
                 break;
             case 2:
                 modulation = 1;
                 minBorder = -2.7;
                 maxBorder = -0.3;
-                main.setAudioMode(true);
                 break;
             case 3:
                 modulation = 1;
                 minBorder = 0.3;
                 maxBorder = 2.7;
-                main.setAudioMode(true);
                 break;
             case 4:
                 modulation = 1;
                 minBorder = -0.95;
                 maxBorder = -0.55;
-                main.setAudioMode(true);
                 break;
         }
         upBorder.setText(String.valueOf(maxBorder));

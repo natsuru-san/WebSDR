@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">WebSDR</string>
     <string name="currentFreq">Current freq.</string>
+    <string name="Depth8k">8 KHz</string>
+    <string name="Depth16k">16 KHz</string>
+    <string name="Depth">Depth audio</string>
     <string name="AM">AM</string>
     <string name="FM">FM</string>
     <string name="USB">USB</string>
@@ -9,9 +12,13 @@
     <string name="Squelch">Squelch</string>
     <string name="Autonotch">Autonotch</string>
     <string name="NoiseReduction">Noise reduction</string>
+    <string name="Volume">Volume</string>
+    <string name="VolumeValue">(100)</string>
     <string name="Gain">Gain</string>
+    <string name="GainValue">(Auto)</string>
     <string name="Autogain">Autogain</string>
     <string name="Agchang">Agchang</string>
+    <string name="AgchangValue">(Auto)</string>
     <string name="AgchangMax">4</string>
     <string name="AgchangMin">0</string>
     <string name="MaxGain">+30</string>
@@ -19,5 +26,7 @@
     <string name="khz"> KHz</string>
     <string name="Settings">Settings</string>
     <string name="FreqInstance">0.0</string>
+    <string name="VolumeMin">0</string>
+    <string name="VolumeMax">100</string>
     <string name="FreqSpace">-------------------------------------------------</string>
 </resources>

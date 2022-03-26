@@ -30,7 +30,7 @@
                 android:text="@string/Settings"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/Constraint"
                 app:layout_constraintStart_toEndOf="@+id/TuneFreq"
                 app:layout_constraintTop_toTopOf="@+id/TuneFreq"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
             <RadioGroup
                 android:id="@+id/ModulationGroup"
@@ -176,7 +176,52 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/UpBorder"
                 app:layout_constraintStart_toStartOf="@+id/UpBorder"
-                app:layout_constraintTop_toBottomOf="@+id/DownFreqButton" />
+                app:layout_constraintTop_toBottomOf="@+id/DownFreqButton"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/DepthBtn16K"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/Depth16k"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/ModulationGroup"
+                app:layout_constraintEnd_toEndOf="@+id/ModulationGroup"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/DepthBtn8K"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/Depth8k"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/DepthBtn16K"
+                app:layout_constraintEnd_toEndOf="@+id/DepthBtn16K"
+                app:layout_constraintStart_toStartOf="@+id/DepthBtn16K"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/DepthValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/Depth"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/DepthBtn8K"
+                app:layout_constraintEnd_toEndOf="@+id/DepthBtn8K" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -222,7 +267,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="400dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -230,7 +275,7 @@
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar2"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="0dp"
                         android:background="@color/grey"
                         android:minHeight="?attr/actionBarSize"
                         android:theme="?attr/actionBarTheme"
@@ -299,6 +344,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/GainSeek"
                         app:layout_constraintStart_toStartOf="@+id/toolbar2"
                         app:layout_constraintTop_toTopOf="@+id/GainSeek" />
 
@@ -318,6 +364,24 @@
                         app:layout_constraintEnd_toStartOf="@+id/MaxGain"
                         app:layout_constraintStart_toEndOf="@+id/MinGain"
                         app:layout_constraintTop_toBottomOf="@+id/Gain" />
+
+                    <SeekBar
+                        android:id="@+id/VolumeSeek"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:min="0"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:progress="100"
+                        android:progressTint="?attr/colorAccent"
+                        android:thumb="@android:drawable/presence_online"
+                        app:layout_constraintEnd_toStartOf="@+id/MaxGain"
+                        app:layout_constraintStart_toEndOf="@+id/MinGain"
+                        app:layout_constraintTop_toBottomOf="@+id/Volume" />
 
                     <TextView
                         android:id="@+id/Gain"
@@ -341,6 +405,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/GainSeek"
                         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
                         app:layout_constraintTop_toTopOf="@+id/GainSeek" />
 
@@ -353,9 +418,22 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/GainSeek"
-                        app:layout_constraintStart_toEndOf="@+id/MinGain"
+                        app:layout_constraintEnd_toEndOf="@+id/AgchangSeek"
+                        app:layout_constraintStart_toStartOf="@+id/AgchangSeek"
                         app:layout_constraintTop_toBottomOf="@+id/GainSeek" />
+
+                    <TextView
+                        android:id="@+id/Volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/Volume"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/AgchangSeek"
+                        app:layout_constraintStart_toStartOf="@+id/AgchangSeek"
+                        app:layout_constraintTop_toBottomOf="@+id/AgchangSeek" />
 
                     <SeekBar
                         android:id="@+id/AgchangSeek"
@@ -386,6 +464,30 @@
                         app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
 
                     <TextView
+                        android:id="@+id/VolumeMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/VolumeMin"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/VolumeSeek"
+                        app:layout_constraintStart_toStartOf="@+id/MinGain"
+                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek" />
+
+                    <TextView
+                        android:id="@+id/VolumeMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/VolumeMax"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/VolumeSeek"
+                        app:layout_constraintEnd_toEndOf="@+id/MaxGain"
+                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek" />
+
+                    <TextView
                         android:id="@+id/AgchangMax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -396,6 +498,43 @@
                         app:layout_constraintBottom_toBottomOf="@+id/AgchangSeek"
                         app:layout_constraintEnd_toEndOf="@+id/MaxGain"
                         app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
+
+                    <TextView
+                        android:id="@+id/GainValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/GainValue"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/GainSeek"
+                        app:layout_constraintStart_toEndOf="@+id/Gain"
+                        app:layout_constraintTop_toTopOf="@+id/Gain" />
+
+                    <TextView
+                        android:id="@+id/AgchangValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/AgchangValue"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/Agchang"
+                        app:layout_constraintStart_toEndOf="@+id/Agchang"
+                        app:layout_constraintTop_toTopOf="@+id/Agchang" />
+
+                    <TextView
+                        android:id="@+id/VolumeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/VolumeValue"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/VolumeSeek"
+                        app:layout_constraintStart_toEndOf="@+id/Volume"
+                        app:layout_constraintTop_toTopOf="@+id/Volume"
+                        app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
