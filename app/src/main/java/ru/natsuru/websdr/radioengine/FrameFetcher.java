@@ -30,6 +30,10 @@ public class FrameFetcher extends Thread implements Runnable{
     public FrameFetcher(MainInit mainInit){
         this.mainInit = mainInit;
     }
+    //Закрытие соединения
+    protected void closeSocket(){
+        streamWs.disconnect();
+    }
     //Ставим частоты, тип модуляции и прочее
     protected void setParams(double freq, int band, double minBorder, double maxBorder, int mode){
         this.freq = freq;
@@ -73,6 +77,7 @@ public class FrameFetcher extends Thread implements Runnable{
         } catch (IOException | URISyntaxException | WebSocketException e) {
             e.printStackTrace();
             Log.d("Warn: ", e.toString());
+            Thread.currentThread().interrupt();
         }
     }
 }

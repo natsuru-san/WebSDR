@@ -30,4 +30,7 @@ public class MainInit {
     public void setDecoder(boolean decoderType){
         audioHolder.setDecoder(decoderType);
     }
+    public void closeSocket(){
+        ff.closeSocket();
+    }
 }

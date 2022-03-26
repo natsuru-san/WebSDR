@@ -1,3 +1,5 @@
+//Copyright by Natsuru-san
+
 package ru.natsuru.websdr;
 
 import android.content.Context;
@@ -5,7 +7,6 @@ import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ public class Main extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private TextView currentFreq;
     private final int SAMPLE_RATE_LOW = 7119;
-    //private final int SAMPLE_RATE_LOW = 8000;
     private final int SAMPLE_RATE = SAMPLE_RATE_LOW * 2;
     private final int FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private final int MASK = AudioFormat.CHANNEL_OUT_MONO;
@@ -56,11 +56,6 @@ public class Main extends AppCompatActivity {
         af.setChannelMask(MASK);
         audioTrack = new AudioTrack(aab.build(), af.build(), BUFFER_SIZE, MODE, ID);
         audioTrack.setPlaybackRate(SAMPLE_RATE);
-        /*
-        PlaybackParams playbackParams = audioTrack.getPlaybackParams();
-        playbackParams.setSpeed(0.5f);
-        audioTrack.setPlaybackParams(playbackParams);
-         */
         mainInit = new MainInit(audioTrack);
         mainInit.setDecoder(false);
     }
@@ -83,6 +78,7 @@ public class Main extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+        mainInit.closeSocket();
         finish();
     }
 }
