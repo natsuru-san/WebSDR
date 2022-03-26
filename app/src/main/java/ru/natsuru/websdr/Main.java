@@ -15,6 +15,7 @@ import ru.natsuru.websdr.radioengine.MainInit;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Main extends AppCompatActivity {
+    private boolean settingsShow = false;
     private AudioTrack audioTrack;
     private String freqText;
     private MainInit mainInit;
@@ -76,9 +77,16 @@ public class Main extends AppCompatActivity {
             audioTrack.setPlaybackRate(SAMPLE_RATE);
         }
     }
+    protected void setSettingsShow(boolean settingsShow){
+        this.settingsShow = settingsShow;
+    }
     @Override
     public void onBackPressed() {
-        mainInit.closeSocket();
-        finish();
+        if(settingsShow){
+            tuner.settingsShow(false);
+        }else{
+            mainInit.closeSocket();
+            finish();
+        }
     }
 }

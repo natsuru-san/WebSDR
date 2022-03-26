@@ -107,14 +107,10 @@ public class Tuner extends Fragment {
                 setWidthChannel(false);
                 break;
             case R.id.HideBtn:
-                if(settings.getVisibility() == View.VISIBLE) {
-                    settings.setVisibility(View.INVISIBLE);
-                }
+                settingsShow(false);
                 break;
             case R.id.ShowBtn:
-                if(settings.getVisibility() == View.INVISIBLE) {
-                    settings.setVisibility(View.VISIBLE);
-                }
+                settingsShow(true);
                 break;
             case R.id.DepthBtn8K:
                 currentDepth = true;
@@ -388,5 +384,18 @@ public class Tuner extends Fragment {
         if(minBorder > MIN_BORDER_LIMIT_OUT){
             minBorder = MIN_BORDER_LIMIT_OUT;
         }
+    }
+    //Показ/сокрытие панели настроек
+    protected void settingsShow(boolean show){
+        if(show){
+            if(settings.getVisibility() == View.INVISIBLE) {
+                settings.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(settings.getVisibility() == View.VISIBLE) {
+                settings.setVisibility(View.INVISIBLE);
+            }
+        }
+        main.setSettingsShow(show);
     }
 }
