@@ -60,8 +60,10 @@ public class Main extends AppCompatActivity {
         mainInit = new MainInit(audioTrack);
         mainInit.setDecoder(false);
     }
-    protected void sendAudioParams(int gain, int noisereduse, double agchang, int squelch, int autonotch, float volume){
+    protected void sendAudioParams(int gain, int noisereduse, double agchang, int squelch, int autonotch){
         mainInit.setAudioParams(gain, noisereduse, agchang, squelch, autonotch);
+    }
+    protected void setVolume(float volume){
         audioTrack.setVolume(volume);
     }
     @SuppressWarnings("SameParameterValue")

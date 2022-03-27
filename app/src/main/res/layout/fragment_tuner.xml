@@ -65,9 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/DownFreqButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/UpFreqButton">
+                app:layout_constraintBottom_toBottomOf="@+id/DownBorder"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <RadioButton
                     android:id="@+id/FMButton"
@@ -186,6 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:fontFamily="@font/amiko"
+                android:padding="0dp"
                 android:text="@string/Depth16k"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -201,11 +201,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/amiko"
+                android:padding="0dp"
                 android:text="@string/Depth8k"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                app:iconPadding="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/DepthBtn16K"
                 app:layout_constraintEnd_toEndOf="@+id/DepthBtn16K"
                 app:layout_constraintStart_toStartOf="@+id/DepthBtn16K"

@@ -47,12 +47,13 @@ public class Tuner extends Fragment {
     private TextView agchangValueView;
     private TextView volumeValueView;
     private TextView depthValueView;
+    private int firstRun = 0;
     private int mode = 1;
     private int modulation = 0;
     private double minBorder = 4.5;
     private double maxBorder = 4.5 * -1;
     private double freq = 0;
-    private double previousFreq = 5;
+    private double previousFreq = -1;
     private int noiseState = 0;
     private int squelchState = 0;
     private int autonotchState = 0;
@@ -102,9 +103,11 @@ public class Tuner extends Fragment {
         switch (v.getId()){
             case R.id.UpFreqButton:
                 setWidthChannel(true);
+                sendParams();
                 break;
             case R.id.DownFreqButton:
                 setWidthChannel(false);
+                sendParams();
                 break;
             case R.id.HideBtn:
                 settingsShow(false);
@@ -114,13 +117,13 @@ public class Tuner extends Fragment {
                 break;
             case R.id.DepthBtn8K:
                 currentDepth = true;
+                setDepth();
                 break;
             case R.id.DepthBtn16K:
                 currentDepth = false;
+                setDepth();
                 break;
         }
-        sendParams();
-        setDepth();
     };
     //Слушатель галочек
     @SuppressLint("NonConstantResourceId")
@@ -141,23 +144,7 @@ public class Tuner extends Fragment {
                 }
                 break;
             case R.id.AutogainBox:
-                if (isChecked) {
-                    gain.setEnabled(false);
-                    agchang.setEnabled(false);
-                    gainValue = 10000;
-                    agchangValue = 0;
-                    agchangValueView.setText(getString(R.string.AgchangValue));
-                    gainValueView.setText(getString(R.string.GainValue));
-                } else {
-                    gain.setEnabled(true);
-                    agchang.setEnabled(true);
-                    gainValue = 0;
-                    agchangValue = 0;
-                    gain.setProgress(gainValue);
-                    agchang.setProgress((int) agchangValue);
-                    agchangValueView.setText(String.valueOf(agchangValue));
-                    gainValueView.setText(String.valueOf(gainValue));
-                }
+                setAutogainViews(isChecked);
                 break;
             case R.id.AutonotchBox:
                 if (isChecked) {
@@ -176,15 +163,17 @@ public class Tuner extends Fragment {
             switch (seekBar.getId()){
                 case R.id.GainSeek:
                     gainValue = progress;
+                    sendAudioParams();
                     break;
                 case R.id.AgchangSeek:
                     agchangValue = progress;
+                    sendAudioParams();
                     break;
                 case R.id.VolumeSeek:
                     volumeValue = progress;
+                    setVolume();
                     break;
             }
-            sendAudioParams();
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
@@ -268,23 +257,34 @@ public class Tuner extends Fragment {
     protected void setMain(Main main){
         this.main = main;
     }
-    //Установка частоты
+    //Установка частоты из ресайклера; имеет костыль из конструкции if-else для решения бага с первыми холостыми 20-ю вызовами из ресайклера
     protected void setFreq(double freq){
-        this.freq = freq - 1;
-        if(previousFreq > this.freq) {
-            this.freq += 23;
+        if(firstRun < 20){
+            firstRun++;
+            if(firstRun == 20){
+                sendParams();
+            }
+        }else{
+            this.freq = freq - 1;
+            if(previousFreq > this.freq) {
+                this.freq += 23;
+            }
+            previousFreq = this.freq;
+            sendParams();
         }
-        previousFreq = this.freq;
-        sendParams();
     }
     //Отправка аудио параметров
     private void sendAudioParams(){
-        main.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState, volumeValue / 100f);
-        volumeValueView.setText(String.valueOf((int)volumeValue));
+        main.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState);
         if(gain.isEnabled() && agchang.isEnabled()){
             gainValueView.setText(String.valueOf(gainValue));
             agchangValueView.setText(String.valueOf((int)agchangValue));
         }
+    }
+    //Независимая регулировка звука
+    private void setVolume(){
+        main.setVolume(volumeValue / 100f);
+        volumeValueView.setText(String.valueOf((int)volumeValue));
     }
     //Отправка параметров серверу
     private void sendParams(){
@@ -397,5 +397,25 @@ public class Tuner extends Fragment {
             }
         }
         main.setSettingsShow(show);
+    }
+    //Autogain флажок; настройка зависимых от него вьюшек
+    private void setAutogainViews(boolean checked){
+        if(checked){
+            gain.setEnabled(false);
+            agchang.setEnabled(false);
+            gainValue = 10000;
+            agchangValue = 0;
+            agchangValueView.setText(getString(R.string.AgchangValue));
+            gainValueView.setText(getString(R.string.GainValue));
+        }else{
+            gain.setEnabled(true);
+            agchang.setEnabled(true);
+            gainValue = 0;
+            agchangValue = 0;
+            gain.setProgress(gainValue);
+            agchang.setProgress((int) agchangValue);
+            agchangValueView.setText(String.valueOf(agchangValue));
+            gainValueView.setText(String.valueOf(gainValue));
+        }
     }
 }
