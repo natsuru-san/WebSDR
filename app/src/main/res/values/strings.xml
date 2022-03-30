@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">OnlineSDR receiver</string>
     <string name="Notation">Glory to Ukraine!</string>
-    <string name="Annotation" translatable="false">Testing version. Author: Natsuru-san</string>
+    <string name="Annotation">Testing version. Author: Natsuru-san</string>
     <string name="currentFreq">Current freq.</string>
+    <string name="Alaw" translatable="false">A-law</string>
+    <string name="Ulaw" translatable="false">μ-law</string>
     <string name="Depth8k">8 KHz</string>
     <string name="Depth16k">16 KHz</string>
     <string name="Depth">Depth audio</string>

@@ -22,4 +22,5 @@
     <string name="PlayStatus">Стан</string>
     <string name="NotifyStatus">"Повідомлення про додаток було вимкнено. Без них SDR-радіо не працюватиме правильно. Встановіть увімкнення повідомлень у налаштуваннях телефону. "</string>
     <string name="Notation">Слава Україні! Героям слава!</string>
+    <string name="Annotation">Тестова версія. Автор: Natsuru-san</string>
 </resources>

@@ -20,9 +20,11 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.ArrayList;
+import ru.natsuru.websdr.radioengine.RadioService;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Tuner extends Fragment {
+    private RadioService service;
     private Main main;
     private View view;
     private ImageButton hideBtn;
@@ -30,6 +32,7 @@ public class Tuner extends Fragment {
     private Button depth8kBtn;
     private Button depth16kBtn;
     private RadioGroup modulationGroup;
+    private RadioGroup codecGroup;
     private RecyclerView tuneFreq;
     private ImageButton upFreqBtn;
     private ImageButton downFreqBtn;
@@ -54,6 +57,7 @@ public class Tuner extends Fragment {
     private double maxBorder = 4.5 * -1;
     private double freq = 0;
     private double previousFreq = -1;
+    private double resumeFreq;
     private int noiseState = 0;
     private int squelchState = 0;
     private int autonotchState = 0;
@@ -65,14 +69,57 @@ public class Tuner extends Fragment {
     private final double MAX_BORDER_LIMIT_OUT = 0;
     private final double MIN_BORDER_LIMIT_OUT = 0;
     private boolean currentDepth = false;
+    private boolean codec = false;
+    public Tuner() {
+        if(RadioService.isRunning()){
+            
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tuner, container, false);
         initView(); //Ищем вьюшки
         prepareView(); //Цепляем на вьюшки слушателей
         startSetting(); //Подготавливаем вьюшки
-        generateFreqInstances(); //Генерируем диапазон частот
+        if(RadioService.isRunning()){
+            resumeTuning();
+        }else{
+            generateFreqInstances(); //Генерируем начальный диапазон частот
+        }
         return view;
+    }
+    //Возобновление работы при запущенной службе
+    private void resumeTuning(){
+        mode = RadioService.getModeStatic();
+        modulation = RadioService.getModulationStatic();
+        setMode();
+        minBorder = RadioService.getMinBorderStatic();
+        maxBorder = RadioService.getMaxBorderStatic();
+        upBorder.setText(String.valueOf(maxBorder));
+        downBorder.setText(String.valueOf(minBorder));
+        gainValue = RadioService.getGainStatic();
+        volumeValue = RadioService.getVolumeStatic() * 100;
+        if(gainValue == 10000){
+            setAutogainViews(true);
+        }else{
+            setAutogainViews(false);
+            noiseState = RadioService.getNoiseStateStatic();
+            squelchState = RadioService.getSquelchStateStatic();
+            autonotchState = RadioService.getAutonotchStateStatic();
+            agchangValue = RadioService.getAgchangStatic();
+            agchang.setProgress((int) agchangValue);
+            gain.setProgress(gainValue);
+            agchangValueView.setText(String.valueOf(agchangValue));
+            gainValueView.setText(String.valueOf(gainValue));
+        }
+        sendAudioParams();
+        currentDepth = RadioService.getAudioModeStatic();
+        setDepth();
+        codec = RadioService.getCodecStatic();
+        setDecoder();
+        resumeFreq = RadioService.getFreqStatic();
+        generateFreqInstances();
+        tuneFreq.scrollToPosition((int) (29001 - resumeFreq));
     }
     //Слушатель радиокнопок
     @SuppressLint("NonConstantResourceId")
@@ -80,22 +127,38 @@ public class Tuner extends Fragment {
         switch (group.getCheckedRadioButtonId()){
             case R.id.FMButton:
                 mode = 0;
+                setMode();
+                sendParams();
                 break;
             case R.id.AMButton:
                 mode = 1;
+                setMode();
+                sendParams();
                 break;
             case R.id.LSBButton:
                 mode = 2;
+                setMode();
+                sendParams();
                 break;
             case R.id.USBButton:
                 mode = 3;
+                setMode();
+                sendParams();
                 break;
             case R.id.CWButton:
                 mode = 4;
+                setMode();
+                sendParams();
+                break;
+            case R.id.AlawButton:
+                codec = false;
+                setDecoder();
+                break;
+            case R.id.UlawButton:
+                codec = true;
+                setDecoder();
                 break;
         }
-        setMode();
-        sendParams();
     };
     //Слушатель кнопок
     @SuppressLint("NonConstantResourceId")
@@ -185,6 +248,7 @@ public class Tuner extends Fragment {
     //Поиск вьюшек
     private void initView(){
         modulationGroup = view.findViewById(R.id.ModulationGroup);
+        codecGroup = view.findViewById(R.id.CodecGroup);
         tuneFreq = view.findViewById(R.id.TuneFreq);
         upFreqBtn = view.findViewById(R.id.UpFreqButton);
         downFreqBtn = view.findViewById(R.id.DownFreqButton);
@@ -210,6 +274,7 @@ public class Tuner extends Fragment {
     //Установка слушателей
     private void prepareView(){
         modulationGroup.setOnCheckedChangeListener(changeListener);
+        codecGroup.setOnCheckedChangeListener(changeListener);
         upFreqBtn.setOnClickListener(clickListener);
         downFreqBtn.setOnClickListener(clickListener);
         noiseReduction.setOnCheckedChangeListener(compoundListener);
@@ -228,6 +293,8 @@ public class Tuner extends Fragment {
     private void startSetting(){
         modulationGroup.clearCheck();
         modulationGroup.check(R.id.AMButton);
+        codecGroup.clearCheck();
+        codecGroup.check(R.id.AlawButton);
         squelch.setChecked(false);
         autoNotch.setChecked(false);
         noiseReduction.setChecked(false);
@@ -257,6 +324,10 @@ public class Tuner extends Fragment {
     protected void setMain(Main main){
         this.main = main;
     }
+    //Получение экземпляра RadioService
+    protected void setService(RadioService service){
+        this.service = service;
+    }
     //Установка частоты из ресайклера; имеет костыль из конструкции if-else для решения бага с первыми холостыми 20-ю вызовами из ресайклера
     protected void setFreq(double freq){
         if(firstRun < 20){
@@ -275,7 +346,7 @@ public class Tuner extends Fragment {
     }
     //Отправка аудио параметров
     private void sendAudioParams(){
-        main.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState);
+        service.sendAudioParams(gainValue, noiseState, agchangValue, squelchState, autonotchState);
         if(gain.isEnabled() && agchang.isEnabled()){
             gainValueView.setText(String.valueOf(gainValue));
             agchangValueView.setText(String.valueOf((int)agchangValue));
@@ -283,16 +354,18 @@ public class Tuner extends Fragment {
     }
     //Независимая регулировка звука
     private void setVolume(){
-        main.setVolume(volumeValue / 100f);
+        service.setVolume(volumeValue / 100f);
         volumeValueView.setText(String.valueOf((int)volumeValue));
     }
     //Отправка параметров серверу
     private void sendParams(){
-        main.sendParams(freq, 0, minBorder, maxBorder, modulation);
+        service.sendParams(freq, 0, minBorder, maxBorder, modulation);
+        service.setMode(mode);
+        main.setFreqView(freq);
     }
     //Установка частоты дискретизации; нужно, поскольку сервер отдаёт поток с разной частотой
     private void setDepth(){
-        main.setAudioMode(currentDepth);
+        service.setAudioMode(currentDepth);
         if(currentDepth){
             depthValueView.setText(getString(R.string.Depth8k));
         }else{
@@ -417,5 +490,9 @@ public class Tuner extends Fragment {
             agchangValueView.setText(String.valueOf(agchangValue));
             gainValueView.setText(String.valueOf(gainValue));
         }
+    }
+    //Декодер
+    private void setDecoder(){
+        service.setDecoder(codec);
     }
 }

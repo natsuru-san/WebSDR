@@ -14,7 +14,7 @@ public class FrameFetcher extends Thread implements Runnable{
     private final String streamKey = "c23YG8a5cE5Dyoj2hdiLBQ==";
     private final String baseUrl = "websdr.ewi.utwente.nl:8901";
     private final String streamAdditional = "/~~stream";
-    private double freq = 1008.000;
+    private double freq = 0.000;
     private int band = 0;
     private int mode = 1;
     private double maxBorder = (-4.5);

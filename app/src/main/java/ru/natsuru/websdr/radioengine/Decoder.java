@@ -4,10 +4,10 @@ package ru.natsuru.websdr.radioengine;
 import android.media.AudioTrack;
 import androidx.annotation.NonNull;
 
-public class AudioHolder {
+public class Decoder {
     private final AudioTrack audiotrack;
     private boolean decoderType = false;
-    public AudioHolder(AudioTrack audiotrack){
+    public Decoder(AudioTrack audiotrack){
         this.audiotrack = audiotrack;
     }
     //A-law декодер; осуществляет "перегон" A-law в 16bit-signed PCM аудио

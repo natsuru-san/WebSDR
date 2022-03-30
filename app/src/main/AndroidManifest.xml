@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ru.natsuru.websdr">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.natsuru.websdr">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -11,12 +13,18 @@
         android:roundIcon="@drawable/ic_radio"
         android:supportsRtl="true"
         android:theme="@style/Theme.WebSDR">
+        <service
+            android:name=".radioengine.RadioService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
-            android:excludeFromRecents="false"
             android:name=".Main"
+            android:excludeFromRecents="false"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
