@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SDR радіо</string>
+    <string name="currentFreq">Поточна частота</string>
+    <string name="Depth8k">8 кГц</string>
+    <string name="Depth16k">16 кГц</string>
+    <string name="Depth">Ширина повені</string>
+    <string name="AM">АМ</string>
+    <string name="FM">ЧМ</string>
+    <string name="USB">Верхня</string>
+    <string name="LSB">Нижня</string>
+    <string name="Squelch">\"Вислиз\"</string>
+    <string name="Autonotch">Рівняння</string>
+    <string name="NoiseReduction">Шум придушення</string>
+    <string name="Volume">Гучність</string>
+    <string name="Gain">Підсилення</string>
+    <string name="GainValue">(Авто)</string>
+    <string name="AgchangValue">(Авто)</string>
+    <string name="Autogain">Автопідсилення</string>
+    <string name="khz">" кГц"</string>
+    <string name="Settings">Налашатування</string>
+    <string name="PlayStatus">Стан</string>
+    <string name="NotifyStatus">"Повідомлення про додаток було вимкнено. Без них SDR-радіо не працюватиме правильно. Встановіть увімкнення повідомлень у налаштуваннях телефону. "</string>
+    <string name="Notation">Слава Україні! Героям слава!</string>
+</resources>

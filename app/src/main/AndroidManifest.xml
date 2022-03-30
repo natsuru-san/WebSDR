@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WebSDR">
         <activity
+            android:excludeFromRecents="false"
             android:name=".Main"
             android:exported="true">
             <intent-filter>

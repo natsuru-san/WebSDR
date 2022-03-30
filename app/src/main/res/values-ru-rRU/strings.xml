@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SDR-приёмник</string>
+    <string name="currentFreq">Текущая частота</string>
+    <string name="Depth8k">8 кГц</string>
+    <string name="Depth16k">16 кГц</string>
+    <string name="Depth">Ширина потока</string>
+    <string name="AM">АМ</string>
+    <string name="FM">ЧМ</string>
+    <string name="USB">Верх. бок</string>
+    <string name="LSB">Ниж. бок</string>
+    <string name="Squelch">\"Скольжение\"</string>
+    <string name="Autonotch">Уравнение</string>
+    <string name="NoiseReduction">Шумодав</string>
+    <string name="Volume">Громкость потока</string>
+    <string name="Gain">Усиление</string>
+    <string name="GainValue">(Авто)</string>
+    <string name="Autogain">Автоусиление</string>
+    <string name="AgchangValue">(Авто)</string>
+    <string name="khz">" кГц"</string>
+    <string name="Settings">Настройки</string>
+    <string name="PlayStatus">Состояние</string>
+    <string name="NotifyStatus">Уведомления данного приложения были заблокированы. Без них приложения не будет работать корректно. Пожалуйста, включите уведомления в настройках.</string>
+    <string name="Notation">Дорогой друг, наша страна устроила кровопролитную вероломную отвратительную войну против родственной нам Украины. Прошу, не верь государственным СМИ, не ведись на их ложь и пропаганду! Останься человеком!</string>
+</resources>

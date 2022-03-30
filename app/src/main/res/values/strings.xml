@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">WebSDR</string>
-    <string name="Annotation">Testing version. Author: Natsuru-san</string>
+    <string name="app_name">OnlineSDR receiver</string>
+    <string name="Notation">Glory to Ukraine!</string>
+    <string name="Annotation" translatable="false">Testing version. Author: Natsuru-san</string>
     <string name="currentFreq">Current freq.</string>
     <string name="Depth8k">8 KHz</string>
     <string name="Depth16k">16 KHz</string>
@@ -9,26 +10,27 @@
     <string name="FM">FM</string>
     <string name="USB">USB</string>
     <string name="LSB">LSB</string>
-    <string name="CW">CW</string>
+    <string name="CW" translatable="false">CW</string>
     <string name="Squelch">Squelch</string>
     <string name="Autonotch">Autonotch</string>
     <string name="NoiseReduction">Noise reduction</string>
     <string name="Volume">Volume</string>
-    <string name="VolumeValue">(100)</string>
+    <string name="VolumeValue" translatable="false">(100)</string>
     <string name="Gain">Gain</string>
     <string name="GainValue">(Auto)</string>
     <string name="Autogain">Autogain</string>
-    <string name="Agchang">Agchang</string>
+    <string name="Agchang" translatable="false">Agchang</string>
     <string name="AgchangValue">(Auto)</string>
-    <string name="AgchangMax">4</string>
-    <string name="AgchangMin">0</string>
-    <string name="MaxGain">+30</string>
-    <string name="MinGain">-100</string>
+    <string name="AgchangMax" translatable="false">4</string>
+    <string name="AgchangMin" translatable="false">0</string>
+    <string name="MaxGain" translatable="false">+30</string>
+    <string name="MinGain" translatable="false">-100</string>
     <string name="khz"> KHz</string>
     <string name="Settings">Settings</string>
-    <string name="FreqInstance">0.0</string>
-    <string name="VolumeMin">0</string>
-    <string name="VolumeMax">100</string>
+    <string name="FreqInstance" translatable="false">0.0</string>
+    <string name="VolumeMin" translatable="false">0</string>
+    <string name="VolumeMax" translatable="false">100</string>
     <string name="PlayStatus">Play status</string>
-    <string name="FreqSpace">-------------------------------------------------</string>
+    <string name="NotifyStatus">Notifications of the app has been disabled. Without them SDR-radio will not working. Please set enabling notifications in the settings of the phone.</string>
+    <string name="FreqSpace" translatable="false">-------------------------------------------------</string>
 </resources>
