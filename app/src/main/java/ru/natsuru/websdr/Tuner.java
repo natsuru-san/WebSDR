@@ -57,7 +57,6 @@ public class Tuner extends Fragment {
     private double maxBorder = 4.5 * -1;
     private double freq = 0;
     private double previousFreq = -1;
-    private double resumeFreq;
     private int noiseState = 0;
     private int squelchState = 0;
     private int autonotchState = 0;
@@ -70,9 +69,37 @@ public class Tuner extends Fragment {
     private final double MIN_BORDER_LIMIT_OUT = 0;
     private boolean currentDepth = false;
     private boolean codec = false;
+    //Переменные для восстановления параметров
+    private boolean running = false;
+    private int modulationStatic;
+    private double minBorderStatic;
+    private double maxBorderStatic;
+    private double freqStatic;
+    private int noiseStateStatic;
+    private int squelchStateStatic;
+    private int autonotchStateStatic;
+    private int gainStatic;
+    private double agchangStatic;
+    private float volumeStatic;
+    private boolean audioModeStatic;
+    private int modeStatic;
+    private boolean codecStatic;
     public Tuner() {
         if(RadioService.isRunning()){
-            
+            running = true;
+            modulationStatic = RadioService.getModulationStatic();
+            minBorderStatic = RadioService.getMinBorderStatic();
+            maxBorderStatic = RadioService.getMaxBorderStatic();
+            freqStatic = RadioService.getFreqStatic();
+            noiseStateStatic = RadioService.getNoiseStateStatic();
+            squelchStateStatic = RadioService.getSquelchStateStatic();
+            autonotchStateStatic = RadioService.getAutonotchStateStatic();
+            gainStatic = RadioService.getGainStatic();
+            agchangStatic = RadioService.getAgchangStatic();
+            volumeStatic = RadioService.getVolumeStatic();
+            audioModeStatic = RadioService.getAudioModeStatic();
+            modeStatic = RadioService.getModeStatic();
+            codecStatic = RadioService.getCodecStatic();
         }
     }
     @Override
@@ -81,45 +108,50 @@ public class Tuner extends Fragment {
         initView(); //Ищем вьюшки
         prepareView(); //Цепляем на вьюшки слушателей
         startSetting(); //Подготавливаем вьюшки
-        if(RadioService.isRunning()){
+        if(running){
             resumeTuning();
         }else{
             generateFreqInstances(); //Генерируем начальный диапазон частот
+            sendAudioParams();
+            setVolume();
         }
         return view;
     }
     //Возобновление работы при запущенной службе
     private void resumeTuning(){
-        mode = RadioService.getModeStatic();
-        modulation = RadioService.getModulationStatic();
+        mode = modeStatic;
+        modulation = modulationStatic;
         setMode();
-        minBorder = RadioService.getMinBorderStatic();
-        maxBorder = RadioService.getMaxBorderStatic();
+        minBorder = minBorderStatic;
+        maxBorder = maxBorderStatic;
         upBorder.setText(String.valueOf(maxBorder));
         downBorder.setText(String.valueOf(minBorder));
-        gainValue = RadioService.getGainStatic();
-        volumeValue = RadioService.getVolumeStatic() * 100;
+        gainValue = gainStatic;
+        volumeValue = volumeStatic * 100;
         if(gainValue == 10000){
             setAutogainViews(true);
         }else{
             setAutogainViews(false);
-            noiseState = RadioService.getNoiseStateStatic();
-            squelchState = RadioService.getSquelchStateStatic();
-            autonotchState = RadioService.getAutonotchStateStatic();
-            agchangValue = RadioService.getAgchangStatic();
+            noiseState = noiseStateStatic;
+            squelchState = squelchStateStatic;
+            autonotchState = autonotchStateStatic;
+            agchangValue = agchangStatic;
             agchang.setProgress((int) agchangValue);
             gain.setProgress(gainValue);
             agchangValueView.setText(String.valueOf(agchangValue));
             gainValueView.setText(String.valueOf(gainValue));
         }
         sendAudioParams();
-        currentDepth = RadioService.getAudioModeStatic();
+        currentDepth = audioModeStatic;
         setDepth();
-        codec = RadioService.getCodecStatic();
+        codec = codecStatic;
         setDecoder();
-        resumeFreq = RadioService.getFreqStatic();
         generateFreqInstances();
-        tuneFreq.scrollToPosition((int) (29001 - resumeFreq));
+        tuneFreq.scrollToPosition((int) (29001 - freqStatic) - 10);
+        freq = freqStatic;
+        sendParams();
+        sendAudioParams();
+        setVolume();
     }
     //Слушатель радиокнопок
     @SuppressLint("NonConstantResourceId")
