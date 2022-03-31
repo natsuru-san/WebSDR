@@ -1,0 +1,16 @@
+#WebSDR client
+
+#ENGLISH
+This software is a client to play software-defined radio.
+As a server, the site "http://websdr.ewi.utwente.nl:8901", from where and transfers the radio flow to the client with the possibility of setting the necessary parameters by the client. Distribution of this server proprietary. Subsequently, in the process of further development, the client will be implemented the possibility of selecting the server to arbitrary.
+The client is provided under the GPLv3 license. The "com.neovisionaries.ws.client" library included in it is provided by Apache v2.0 license.
+
+#UKRAINIAN
+Дане програмне забезпечення являє собою клієнт для відтворення програмно-визначуваного радіо.
+В якості сервера виступає сайт "http://websdr.ewi.utwente.nl:8901", звідки і передається Радіопотік клієнту з можливістю налаштування необхідних параметрів клієнтом. Дистрибутив даного сервера пропрієтарний. Згодом в процесі подальшої розробки, в клієнті буде реалізована можливість вибору сервера на довільний.
+Клієнт надається за ліцензією GPLv3. Включена в нього бібліотека "com.neovisionaries.ws.client", надається за ліцензією Apache 2.0.
+
+#RUSSIAN
+Данное программное обеспечение являет собой клиент для воспроизведения программно-определяемого радио.
+В качестве сервера выступает сайт "http://websdr.ewi.utwente.nl:8901", откуда и передаётся радиопоток клиенту с возможностью настройки необходимых параметров клиентом. Дистрибутив данного сервера проприетарный. Впоследствии в процессе дальнейшей разработки, в клиенте будет реализована возможность выбора сервера на произвольный.
+Клиент предоставляется по лицензии GPLv3. Включённая в него библиотека "com.neovisionaries.ws.client", предоставляется по лицензии Apache v2.0.
