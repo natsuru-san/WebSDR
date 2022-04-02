@@ -13,11 +13,13 @@
         android:roundIcon="@drawable/ic_radio"
         android:supportsRtl="true"
         android:theme="@style/Theme.WebSDR">
+        <activity
+            android:name=".About"
+            android:exported="false" />
         <service
             android:name=".radioengine.RadioService"
             android:enabled="true"
             android:exported="false" />
-
         <activity
             android:name=".Main"
             android:excludeFromRecents="false"

@@ -39,7 +39,13 @@
     <string name="PlayStatus">Play status</string>
     <string name="Menu">Menu</string>
     <string name="Delete">Delete</string>
+    <string name="License" translatable="false">Licence: GPLv3</string>
+    <string name="Contacts" translatable="false">E-mail: natsuru-san@mail.com</string>
     <string name="AsService">Working as service</string>
     <string name="NotifyStatus">Notifications of the app has been disabled. Without them SDR-radio will not working. Please set enabling notifications in the settings of the phone.</string>
     <string name="FreqSpace" translatable="false">-------------------------------------------------</string>
+    <string name="AboutTitle">About OnlineSDR receiver</string>
+    <string name="AboutText">This software is a client to play software-defined radio.
+As a server, the site "http://websdr.ewi.utwente.nl:8901", from where and transfers the radio flow to the client with the possibility of setting the necessary parameters by the client. Distribution of this server proprietary. Subsequently, in the process of further development, the client will be implemented the possibility of selecting the server to arbitrary.
+The client is provided under the GPLv3 license. The "com.neovisionaries.ws.client" library included in it is provided by Apache v2.0 license.</string>
 </resources>

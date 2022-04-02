@@ -99,6 +99,8 @@ public class Main extends AppCompatActivity {
                 finish();
                 break;
             case R.id.AboutBtn:
+                Intent intent = new Intent(getApplicationContext(), About.class);
+                startActivity(intent);
                 break;
         }
     };
