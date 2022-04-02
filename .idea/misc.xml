@@ -5,11 +5,13 @@
       <map>
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/drawable/arrow.xml" value="0.36" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/drawable/ic_radio_mono.xml" value="0.36" />
+        <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/drawable/ic_sandwich.xml" value="0.327" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/activity_main.xml" value="0.3020833333333333" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/bands.xml" value="0.3052536231884058" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/fragment_settings.xml" value="0.3432971014492754" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/fragment_tuner.xml" value="0.3020833333333333" />
-        <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/main.xml" value="0.3020833333333333" />
+        <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/main.xml" value="0.36666666666666664" />
+        <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/memories.xml" value="0.36666666666666664" />
         <entry key="..\:/WorkFolder/WebSDR/app/src/main/res/layout/temporary.xml" value="0.3020833333333333" />
       </map>
     </option>

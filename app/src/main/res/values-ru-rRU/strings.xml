@@ -23,4 +23,11 @@
     <string name="NotifyStatus">Уведомления данного приложения были заблокированы. Без них приложения не будет работать корректно. Пожалуйста, включите уведомления в настройках.</string>
     <string name="Notation">Слава Украине! Нет войне!</string>
     <string name="Annotation">Тестовая версия. Автор: Natsuru-san</string>
+    <string name="Memory">Память</string>
+    <string name="AddToMemory">Запомнить</string>
+    <string name="Close">Выйти</string>
+    <string name="About">О приложении</string>
+    <string name="Menu">Меню</string>
+    <string name="Delete">Удалить</string>
+    <string name="AsService">Работа в качестве службы</string>
 </resources>

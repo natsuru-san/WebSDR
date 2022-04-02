@@ -68,7 +68,7 @@ public class Decoder {
         }else{
             decoded = decodeAlaw(currentArray);
         }
-        audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_NON_BLOCKING);
+        audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
     }
     protected void setDecoder(boolean decoderType){
         this.decoderType = decoderType;

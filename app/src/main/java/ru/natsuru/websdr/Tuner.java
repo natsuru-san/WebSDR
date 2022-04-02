@@ -19,7 +19,9 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import ru.natsuru.websdr.radioengine.RadioService;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -526,5 +528,46 @@ public class Tuner extends Fragment {
     //Декодер
     private void setDecoder(){
         service.setDecoder(codec);
+    }
+    //Внешний метод для установки сохранённых параметров канала из Main
+    protected void setMemory(double freq, double minBorder, double maxBorder, int mode){
+        this.mode = mode;
+        setMode();
+        this.minBorder = minBorder;
+        this.maxBorder = maxBorder;
+        upBorder.setText(String.valueOf(maxBorder));
+        downBorder.setText(String.valueOf(minBorder));
+        previousFreq = freq - 2;
+        firstRun = 0;
+        tuneFreq.scrollToPosition((int) (28991 - freq));
+        modulationGroup.clearCheck();
+        switch (mode){
+            case 0:
+                modulationGroup.check(R.id.FMButton);
+                break;
+            case 1:
+                modulationGroup.check(R.id.AMButton);
+                break;
+            case 2:
+                modulationGroup.check(R.id.LSBButton);
+                break;
+            case 3:
+                modulationGroup.check(R.id.USBButton);
+                break;
+            case 4:
+                modulationGroup.check(R.id.CWButton);
+                break;
+        }
+        this.freq = freq;
+        sendParams();
+    }
+    //Внешний метод для получения текущих параметров станции для Main
+    protected JSONObject getMemory(){
+        HashMap<String, String> station = new HashMap<>();
+        station.put("Mode", String.valueOf(mode));
+        station.put("MinBorder", String.valueOf(minBorder));
+        station.put("MaxBorder", String.valueOf(maxBorder));
+        station.put("Freq", String.valueOf(freq));
+        return new JSONObject(station);
     }
 }

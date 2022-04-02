@@ -17,6 +17,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/OpenMemoryMenuBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/Menu"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/CurrentFreq"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/CurrentFreq"
+        app:srcCompat="@drawable/ic_sandwich"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
     <TextView
         android:id="@+id/CurrentFreq"
         android:layout_width="wrap_content"
@@ -34,7 +48,7 @@
         tools:ignore="TextContrastCheck" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/Container"
+        android:id="@+id/ContainerTuner"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,7 +56,123 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:layout="@layout/fragment_tuner"
-        tools:visibility="invisible" />
+        tools:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/ContainerMemory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar4"
+                android:layout_width="256dp"
+                android:layout_height="0dp"
+                android:background="@color/grey"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/CloseMemoryMenuBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/Memory"
+                android:src="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/toolbar4"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:src="@color/transparent"
+                tools:srcCompat="@color/transparent" />
+
+            <Button
+                android:id="@+id/AddToMemBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/AddToMemory"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar4"
+                tools:ignore="TextContrastCheck" />
+
+            <ImageButton
+                android:id="@+id/ExitBtn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/Close"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+            <ImageButton
+                android:id="@+id/AboutBtn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/About"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar4"
+                app:srcCompat="@android:drawable/ic_menu_info_details"
+                tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/MemoriesRV"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/AsServiceBtn"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar4"
+                app:layout_constraintStart_toStartOf="@+id/toolbar4"
+                app:layout_constraintTop_toBottomOf="@+id/AddToMemBtn">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/AsServiceBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:fontFamily="@font/amiko"
+                android:minHeight="48dp"
+                android:text="@string/AsService"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/ExitBtn"
+                app:layout_constraintEnd_toEndOf="@+id/AboutBtn"
+                app:layout_constraintStart_toStartOf="@+id/ExitBtn"
+                tools:ignore="TextContrastCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -54,7 +184,7 @@
         android:textColor="@color/grey"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/Container"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="TextContrastCheck" />
