@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -40,6 +41,7 @@ public class Main extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private TextView currentFreq;
     private Button addToMemoryBtn;
+    private Button restartBtn;
     private ImageButton openMemoryMenuBtn;
     private ImageButton closeMemoryMenuBtn;
     private ImageButton exitBtn;
@@ -102,6 +104,17 @@ public class Main extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), About.class);
                 startActivity(intent);
                 break;
+            case R.id.RestartBtn:
+                radioService.closeRadio();
+                unbindService(serviceConnection);
+                Intent start = new Intent(this, RadioService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(start);
+                }else{
+                    startService(start);
+                }
+                bindService(start, serviceConnection, BIND_AUTO_CREATE);
+                break;
         }
     };
     @SuppressLint("NonConstantResourceId")
@@ -123,6 +136,7 @@ public class Main extends AppCompatActivity {
         openMemoryMenuBtn = findViewById(R.id.OpenMemoryMenuBtn);
         closeMemoryMenuBtn = findViewById(R.id.CloseMemoryMenuBtn);
         aboutBtn = findViewById(R.id.AboutBtn);
+        restartBtn = findViewById(R.id.RestartBtn);
         exitBtn = findViewById(R.id.ExitBtn);
         memoriesRV = findViewById(R.id.MemoriesRV);
         containerMemory = findViewById(R.id.ContainerMemory);
@@ -133,6 +147,7 @@ public class Main extends AppCompatActivity {
         addToMemoryBtn.setOnClickListener(listener);
         openMemoryMenuBtn.setOnClickListener(listener);
         closeMemoryMenuBtn.setOnClickListener(listener);
+        restartBtn.setOnClickListener(listener);
         aboutBtn.setOnClickListener(listener);
         exitBtn.setOnClickListener(listener);
         asServiceBtn.setOnCheckedChangeListener(compoundListener);
@@ -152,7 +167,11 @@ public class Main extends AppCompatActivity {
             freqText = RadioService.getFreqStatic() + getString(R.string.khz);
             currentFreq.setText(freqText);
         }else{
-            startForegroundService(start);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(start);
+            }else{
+                startService(start);
+            }
         }
         bindService(start, serviceConnection, BIND_AUTO_CREATE);
     }

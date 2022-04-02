@@ -147,7 +147,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/AsServiceBtn"
+                app:layout_constraintBottom_toTopOf="@+id/RestartBtn"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar4"
                 app:layout_constraintStart_toStartOf="@+id/toolbar4"
                 app:layout_constraintTop_toBottomOf="@+id/AddToMemBtn">
@@ -171,22 +171,23 @@
                 app:layout_constraintStart_toStartOf="@+id/ExitBtn"
                 tools:ignore="TextContrastCheck" />
 
+            <Button
+                android:id="@+id/RestartBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/amiko"
+                android:text="@string/Restart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/AsServiceBtn"
+                app:layout_constraintEnd_toEndOf="@+id/AsServiceBtn"
+                app:layout_constraintStart_toStartOf="@+id/AsServiceBtn"
+                tools:ignore="TextContrastCheck" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/amiko"
-        android:text="@string/Annotation"
-        android:textAlignment="center"
-        android:textColor="@color/grey"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

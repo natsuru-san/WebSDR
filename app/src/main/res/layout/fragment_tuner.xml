@@ -40,7 +40,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/TuneFreq"
-                android:layout_width="192dp"
+                android:layout_width="176dp"
                 android:layout_height="640dp"
                 app:layout_constraintBottom_toBottomOf="@+id/Constraint"
                 app:layout_constraintStart_toStartOf="@+id/Constraint" />

@@ -2,6 +2,8 @@
 
 package ru.natsuru.websdr.radioengine;
 import android.media.AudioTrack;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 public class Decoder {
@@ -68,7 +70,11 @@ public class Decoder {
         }else{
             decoded = decodeAlaw(currentArray);
         }
-        audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
+        }else{
+            audiotrack.write(decoded, 0, decoded.length);
+        }
     }
     protected void setDecoder(boolean decoderType){
         this.decoderType = decoderType;

@@ -4,18 +4,24 @@
 
 package ru.natsuru.websdr.radioengine;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
+import android.widget.RemoteViews;
+
 import ru.natsuru.websdr.R;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -103,7 +109,9 @@ public class RadioService extends Service {
         audioManager.setMode(AudioManager.MODE_NORMAL);
         audioManager.setSpeakerphoneOn(true);
         AudioAttributes.Builder aab = new AudioAttributes.Builder();
-        aab.setFlags(AudioAttributes.ALLOW_CAPTURE_BY_ALL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            aab.setFlags(AudioAttributes.ALLOW_CAPTURE_BY_ALL);
+        }
         aab.setFlags(AudioAttributes.CONTENT_TYPE_MUSIC);
         AudioFormat.Builder af = new AudioFormat.Builder();
         af.setEncoding(FORMAT);
@@ -116,15 +124,26 @@ public class RadioService extends Service {
     //Запуск уведомления
     private void initNotifications(){
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Radio", NotificationManager.IMPORTANCE_HIGH);
-        channel.setSound(null, null);
-        notificationManager.createNotificationChannel(channel);
-        notification = new Notification.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_radio_mono)
-                .setOngoing(true)
-                .setContentText(getString(R.string.Annotation))
-                .setContentTitle(getString(R.string.Annotation))
-                .build();
+        NotificationChannel channel;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(CHANNEL_ID, "Radio", NotificationManager.IMPORTANCE_HIGH);
+            channel.setSound(null, null);
+            notificationManager.createNotificationChannel(channel);
+        }
+        RemoteViews view = new RemoteViews(getPackageName(), R.layout.notification);
+        @SuppressLint("ResourceType") Bitmap bitmap = BitmapFactory.decodeStream(getResources().openRawResource(R.drawable.ic_flag));
+        view.setImageViewBitmap(R.id.Logo, bitmap);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notification = new Notification.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_radio_mono)
+                    .setOngoing(true)
+                    .setCustomContentView(view)
+                    .setContentText(getString(R.string.Annotation))
+                    .setContentTitle(getString(R.string.Annotation))
+                    .build();
+        }else{
+            notification = new Notification();
+        }
         startForeground(Service.BIND_IMPORTANT, notification);
     }
     //Передача типа кодека
