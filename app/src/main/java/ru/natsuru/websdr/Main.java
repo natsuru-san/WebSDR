@@ -30,6 +30,7 @@ import ru.natsuru.websdr.radioengine.RadioService;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Main extends AppCompatActivity {
+    private double lastFreq = 0;
     private Storage storage;
     private RadioService radioService;
     private boolean settingsShow = false;
@@ -207,7 +208,15 @@ public class Main extends AppCompatActivity {
         memoriesRV.setAdapter(new MemoryAdapter(this, memories, this));
     }
     protected void tuneFromMemory(@NonNull MemoryCell cell){
-        tuner.setMemory(cell.getFreq(), cell.getMinBorder(), cell.getMaxBorder(), cell.getMode());
+        double freq = cell.getFreq();
+        if(lastFreq > freq){
+            freq -= 19;
+        }
+        tuner.setMemory(freq, cell.getMinBorder(), cell.getMaxBorder(), cell.getMode());
+        lastFreq = freq;
+    }
+    protected double getLastFreq(){
+        return lastFreq;
     }
     protected void deleteFromMemory(@NonNull MemoryCell cell){
         try {

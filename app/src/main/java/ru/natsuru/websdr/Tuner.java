@@ -128,16 +128,21 @@ public class Tuner extends Fragment {
         maxBorder = maxBorderStatic;
         upBorder.setText(String.valueOf(maxBorder));
         downBorder.setText(String.valueOf(minBorder));
-        gainValue = gainStatic;
         volumeValue = volumeStatic * 100;
-        if(gainValue == 10000){
+        volume.setProgress((int) volumeValue);
+        noiseState = noiseStateStatic;
+        squelchState = squelchStateStatic;
+        autonotchState = autonotchStateStatic;
+        noiseReduction.setChecked(noiseState == -100);
+        squelch.setChecked(squelchState == 1);
+        autoNotch.setChecked(autonotchState == 1);
+        if(gainStatic == 10000){
             setAutogainViews(true);
         }else{
+            autoGain.setChecked(false);
             setAutogainViews(false);
-            noiseState = noiseStateStatic;
-            squelchState = squelchStateStatic;
-            autonotchState = autonotchStateStatic;
             agchangValue = agchangStatic;
+            gainValue = gainStatic;
             agchang.setProgress((int) agchangValue);
             gain.setProgress(gainValue);
             agchangValueView.setText(String.valueOf(agchangValue));
@@ -537,8 +542,8 @@ public class Tuner extends Fragment {
         this.maxBorder = maxBorder;
         upBorder.setText(String.valueOf(maxBorder));
         downBorder.setText(String.valueOf(minBorder));
-        previousFreq = freq - 2;
         firstRun = 0;
+        this.freq = freq;
         tuneFreq.scrollToPosition((int) (28991 - freq));
         modulationGroup.clearCheck();
         switch (mode){
@@ -558,7 +563,9 @@ public class Tuner extends Fragment {
                 modulationGroup.check(R.id.CWButton);
                 break;
         }
-        this.freq = freq;
+        if(main.getLastFreq() > this.freq){
+            this.freq += 19;
+        }
         sendParams();
     }
     //Внешний метод для получения текущих параметров станции для Main

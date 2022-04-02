@@ -1,3 +1,5 @@
+//Copyright by Natsuru-san
+
 package ru.natsuru.websdr;
 
 public class MemoryCell {
