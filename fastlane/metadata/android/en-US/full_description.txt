@@ -1,0 +1,2 @@
+This software is a client to play software-defined radio.
+As a server, the site "http://websdr.ewi.utwente.nl:8901", from where and transfers the radio flow to the client with the possibility of setting the necessary parameters by the client. Distribution of this server proprietary. Subsequently, in the process of further development, the client will be implemented the possibility of selecting the server to arbitrary.
