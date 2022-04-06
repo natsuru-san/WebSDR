@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.WebSDR" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#FF018786</item>
-        <item name="colorPrimaryVariant">#FF018786</item>
+        <item name="colorPrimary">@color/ocean</item>
+        <item name="colorPrimaryVariant">@color/ocean</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FF018786</item>
-        <item name="colorSecondaryVariant">#FF018786</item>
-        <item name="colorOnSecondary">@color/grey</item>
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/grey</item>
+        <item name="colorOnSecondary">@color/transparent</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

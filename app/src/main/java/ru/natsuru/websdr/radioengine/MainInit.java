@@ -18,6 +18,9 @@ public class MainInit {
         ff = new FrameFetcher(this);
         ff.start();
     }
+    protected void paused(){
+        decoder.paused();
+    }
     protected void setParams(double freq, int band, double minBorder, double maxBorder, int mode){
         ff.setParams(freq, band, minBorder, maxBorder, mode);
     }
@@ -33,5 +36,13 @@ public class MainInit {
     }
     protected void closeSocket(){
         ff.closeSocket();
+        try {
+            ff.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    protected void setAudioTrack(AudioTrack audioTrack){
+        decoder.setAudioTrack(audioTrack);
     }
 }

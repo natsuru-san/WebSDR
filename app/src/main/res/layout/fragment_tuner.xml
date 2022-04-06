@@ -31,7 +31,7 @@
                 android:text="@string/Settings"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,9 +72,10 @@
                     android:id="@+id/FMButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?attr/colorPrimary"
                     android:fontFamily="@font/amiko"
                     android:text="@string/FM"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck" />
@@ -83,9 +84,10 @@
                     android:id="@+id/AMButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?attr/colorPrimary"
                     android:fontFamily="@font/amiko"
                     android:text="@string/AM"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="TextContrastCheck" />
@@ -94,31 +96,37 @@
                     android:id="@+id/LSBButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?attr/colorPrimary"
                     android:fontFamily="@font/amiko"
                     android:text="@string/LSB"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
 
                 <RadioButton
                     android:id="@+id/USBButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?attr/colorPrimary"
                     android:fontFamily="@font/amiko"
                     android:text="@string/USB"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
 
                 <RadioButton
                     android:id="@+id/CWButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="?attr/colorPrimary"
                     android:fontFamily="@font/amiko"
                     android:text="@string/CW"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck" />
 
             </RadioGroup>
 
@@ -159,7 +167,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/amiko"
                 android:text="@string/FreqInstance"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/UpFreqButton"
                 app:layout_constraintEnd_toEndOf="@+id/UpFreqButton"
@@ -172,7 +180,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/amiko"
                 android:text="@string/FreqInstance"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/UpBorder"
                 app:layout_constraintStart_toStartOf="@+id/UpBorder"
@@ -188,7 +196,7 @@
                 android:padding="0dp"
                 android:text="@string/Depth16k"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/ModulationGroup"
@@ -204,7 +212,7 @@
                 android:padding="0dp"
                 android:text="@string/Depth8k"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:iconPadding="0dp"
@@ -220,7 +228,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/amiko"
                 android:text="@string/Depth"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/DepthBtn8K"
@@ -279,7 +287,7 @@
                         android:id="@+id/toolbar2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="@color/grey"
+                        android:background="?attr/colorSecondaryVariant"
                         android:minHeight="?attr/actionBarSize"
                         android:theme="?attr/actionBarTheme"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -291,13 +299,14 @@
                         android:id="@+id/AutogainBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="?attr/colorAccent"
+                        android:buttonTint="?attr/colorPrimary"
                         android:checked="true"
                         android:text="@string/Autogain"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="@+id/SquelchBox"
-                        app:layout_constraintTop_toBottomOf="@+id/SquelchBox" />
+                        app:layout_constraintTop_toBottomOf="@+id/SquelchBox"
+                        tools:ignore="TextContrastCheck" />
 
                     <CheckBox
                         android:id="@+id/AutonotchBox"
@@ -305,35 +314,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="8dp"
-                        android:buttonTint="?attr/colorAccent"
+                        android:buttonTint="?attr/colorPrimary"
                         android:checked="false"
                         android:text="@string/Autonotch"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/CodecGroup" />
+                        app:layout_constraintTop_toBottomOf="@+id/CodecGroup"
+                        tools:ignore="TextContrastCheck" />
 
                     <CheckBox
                         android:id="@+id/NoiseBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="?attr/colorAccent"
+                        android:buttonTint="?attr/colorPrimary"
                         android:checked="false"
                         android:text="@string/NoiseReduction"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="@+id/AutonotchBox"
-                        app:layout_constraintTop_toBottomOf="@+id/AutonotchBox" />
+                        app:layout_constraintTop_toBottomOf="@+id/AutonotchBox"
+                        tools:ignore="TextContrastCheck" />
 
                     <CheckBox
                         android:id="@+id/SquelchBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="32dp"
-                        android:buttonTint="?attr/colorAccent"
+                        android:buttonTint="?attr/colorPrimary"
                         android:checked="false"
                         android:text="@string/Squelch"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="@+id/AutonotchBox"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -345,12 +356,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/MinGain"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/GainSeek"
                         app:layout_constraintStart_toStartOf="@+id/toolbar2"
-                        app:layout_constraintTop_toTopOf="@+id/GainSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/GainSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <SeekBar
                         android:id="@+id/GainSeek"
@@ -363,11 +375,12 @@
                         android:min="-100"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:progressTint="?attr/colorAccent"
+                        android:progressTint="?attr/colorPrimary"
                         android:thumb="@android:drawable/presence_online"
                         app:layout_constraintEnd_toStartOf="@+id/MaxGain"
                         app:layout_constraintStart_toEndOf="@+id/MinGain"
-                        app:layout_constraintTop_toBottomOf="@+id/Gain" />
+                        app:layout_constraintTop_toBottomOf="@+id/Gain"
+                        tools:targetApi="o" />
 
                     <SeekBar
                         android:id="@+id/VolumeSeek"
@@ -381,11 +394,12 @@
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
                         android:progress="100"
-                        android:progressTint="?attr/colorAccent"
+                        android:progressTint="?attr/colorPrimary"
                         android:thumb="@android:drawable/presence_online"
                         app:layout_constraintEnd_toStartOf="@+id/MaxGain"
                         app:layout_constraintStart_toEndOf="@+id/MinGain"
-                        app:layout_constraintTop_toBottomOf="@+id/Volume" />
+                        app:layout_constraintTop_toBottomOf="@+id/Volume"
+                        tools:targetApi="o" />
 
                     <TextView
                         android:id="@+id/Gain"
@@ -393,12 +407,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/Gain"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/AutogainBox"
                         app:layout_constraintStart_toStartOf="@+id/NoiseBox"
-                        app:layout_constraintTop_toBottomOf="@+id/AutogainBox" />
+                        app:layout_constraintTop_toBottomOf="@+id/AutogainBox"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/MaxGain"
@@ -406,12 +421,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:text="@string/MaxGain"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/GainSeek"
                         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-                        app:layout_constraintTop_toTopOf="@+id/GainSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/GainSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/Agchang"
@@ -419,12 +435,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/Agchang"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/AgchangSeek"
                         app:layout_constraintStart_toStartOf="@+id/AgchangSeek"
-                        app:layout_constraintTop_toBottomOf="@+id/GainSeek" />
+                        app:layout_constraintTop_toBottomOf="@+id/GainSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/Volume"
@@ -432,12 +449,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/Volume"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/AgchangSeek"
                         app:layout_constraintStart_toStartOf="@+id/AgchangSeek"
-                        app:layout_constraintTop_toBottomOf="@+id/AgchangSeek" />
+                        app:layout_constraintTop_toBottomOf="@+id/AgchangSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <SeekBar
                         android:id="@+id/AgchangSeek"
@@ -449,59 +467,64 @@
                         android:min="0"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:progressTint="?attr/colorAccent"
+                        android:progressTint="?attr/colorPrimary"
                         android:thumb="@android:drawable/presence_online"
                         app:layout_constraintEnd_toEndOf="@+id/GainSeek"
                         app:layout_constraintStart_toStartOf="@+id/GainSeek"
-                        app:layout_constraintTop_toBottomOf="@+id/Agchang" />
+                        app:layout_constraintTop_toBottomOf="@+id/Agchang"
+                        tools:targetApi="o" />
 
                     <TextView
                         android:id="@+id/AgchangMin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/AgchangMin"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/AgchangSeek"
                         app:layout_constraintStart_toStartOf="@+id/MinGain"
-                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/VolumeMin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/VolumeMin"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/VolumeSeek"
                         app:layout_constraintStart_toStartOf="@+id/MinGain"
-                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/VolumeMax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/VolumeMax"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/VolumeSeek"
                         app:layout_constraintEnd_toEndOf="@+id/MaxGain"
-                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/VolumeSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/AgchangMax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/AgchangMax"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="@+id/AgchangSeek"
                         app:layout_constraintEnd_toEndOf="@+id/MaxGain"
-                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek" />
+                        app:layout_constraintTop_toTopOf="@+id/AgchangSeek"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/GainValue"
@@ -509,11 +532,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/GainValue"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toTopOf="@+id/GainSeek"
                         app:layout_constraintStart_toEndOf="@+id/Gain"
-                        app:layout_constraintTop_toTopOf="@+id/Gain" />
+                        app:layout_constraintTop_toTopOf="@+id/Gain"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/AgchangValue"
@@ -521,11 +545,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/AgchangValue"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="@+id/Agchang"
                         app:layout_constraintStart_toEndOf="@+id/Agchang"
-                        app:layout_constraintTop_toTopOf="@+id/Agchang" />
+                        app:layout_constraintTop_toTopOf="@+id/Agchang"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/VolumeValue"
@@ -533,12 +558,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/VolumeValue"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toTopOf="@+id/VolumeSeek"
                         app:layout_constraintStart_toEndOf="@+id/Volume"
                         app:layout_constraintTop_toTopOf="@+id/Volume"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:ignore="TextContrastCheck" />
 
                     <RadioGroup
                         android:id="@+id/CodecGroup"
@@ -554,21 +580,25 @@
                             android:id="@+id/AlawButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:buttonTint="?attr/colorPrimary"
                             android:fontFamily="@font/amiko"
                             android:text="@string/Alaw"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorSecondary"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TextContrastCheck" />
 
                         <RadioButton
                             android:id="@+id/UlawButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:buttonTint="?attr/colorPrimary"
                             android:fontFamily="@font/amiko"
                             android:text="@string/Ulaw"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorSecondary"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TextContrastCheck" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

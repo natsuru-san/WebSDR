@@ -1,14 +1,15 @@
 //Copyright by Natsuru-san
 
 package ru.natsuru.websdr.radioengine;
+
 import android.media.AudioTrack;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 
 public class Decoder {
-    private final AudioTrack audiotrack;
+    private AudioTrack audiotrack;
     private boolean decoderType = false;
+    private boolean pause = false;
     public Decoder(AudioTrack audiotrack){
         this.audiotrack = audiotrack;
     }
@@ -64,19 +65,31 @@ public class Decoder {
     }
     //Приём байтового потока, преобразование и его запись в аудиобуфер
     protected void playOutput(@NonNull byte[] currentArray){
-        short[] decoded;
-        if(decoderType){
-            decoded = decodeUlaw(currentArray);
-        }else{
-            decoded = decodeAlaw(currentArray);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
-        }else{
-            audiotrack.write(decoded, 0, decoded.length);
+        if(!pause){
+            short[] decoded;
+            if(decoderType){
+                decoded = decodeUlaw(currentArray);
+            }else{
+                decoded = decodeAlaw(currentArray);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                audiotrack.write(decoded, 0, decoded.length, AudioTrack.WRITE_BLOCKING);
+            }else{
+                audiotrack.write(decoded, 0, decoded.length);
+            }
+            audiotrack.flush();
         }
     }
     protected void setDecoder(boolean decoderType){
         this.decoderType = decoderType;
+    }
+    protected void setAudioTrack(AudioTrack audiotrack){
+        this.audiotrack = audiotrack;
+        audiotrack.play();
+        pause = false;
+    }
+    protected void paused(){
+        pause = true;
+        audiotrack.release();
     }
 }

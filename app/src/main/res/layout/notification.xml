@@ -11,8 +11,8 @@
         android:id="@+id/imageView3"
         android:layout_width="16dp"
         android:layout_height="match_parent"
-        tools:srcCompat="@color/transparent"
-        android:contentDescription="@string/Notation" />
+        android:contentDescription="@string/Notation"
+        tools:srcCompat="?attr/colorOnSecondary" />
 
     <ImageView
         android:id="@+id/Logo"
@@ -32,7 +32,8 @@
         android:gravity="center"
         android:text="@string/Notation"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 </LinearLayout>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ocean">#FF018786</color>
+    <color name="oceanDark">#025C5B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#AAABAE</color>
     <color name="transparent">#00000000</color>
+    <color name="greyDark">#222222</color>
 </resources>

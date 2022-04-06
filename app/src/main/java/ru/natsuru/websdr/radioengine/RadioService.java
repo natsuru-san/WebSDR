@@ -21,6 +21,8 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.widget.RemoteViews;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ru.natsuru.websdr.R;
 
@@ -53,6 +55,7 @@ public class RadioService extends Service {
     private final int MODE = AudioTrack.MODE_STREAM;
     private final int ID = AudioManager.AUDIO_SESSION_ID_GENERATE;
     private final int BUFFER_SIZE = AudioTrack.getMinBufferSize(SAMPLE_RATE, MASK, FORMAT) * 2;
+    private Timer timer;
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
@@ -60,10 +63,24 @@ public class RadioService extends Service {
     //Начальная инициация
     @Override
     public void onCreate() {
+        initAudio();
         initRadio();
-        initNotifications();
+        initNotify();
         running = true;
+        updateAudio();
         super.onCreate();
+    }
+    //Объект задачи
+    private final TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            resetAudio();
+        }
+    };
+    //Задача по таймеру
+    private void updateAudio(){
+        timer = new Timer();
+        timer.schedule(task, 300000, 300000);
     }
     //Независимая регулировка громкости
     public void setVolume(float volume){
@@ -101,10 +118,18 @@ public class RadioService extends Service {
         mainInit.closeSocket();
         notificationManager.cancelAll();
         running = false;
+        audioTrack.release();
+        timer.cancel();
+        timer.purge();
         stopSelf();
     }
     //Запуск нити с радио
     private void initRadio(){
+        mainInit = new MainInit(audioTrack);
+        mainInit.setDecoder(false);
+    }
+    //Подготовка аудиотрека
+    private void initAudio(){
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         audioManager.setMode(AudioManager.MODE_NORMAL);
         audioManager.setSpeakerphoneOn(true);
@@ -118,11 +143,9 @@ public class RadioService extends Service {
         af.setChannelMask(MASK);
         audioTrack = new AudioTrack(aab.build(), af.build(), BUFFER_SIZE, MODE, ID);
         audioTrack.setPlaybackRate(SAMPLE_RATE);
-        mainInit = new MainInit(audioTrack);
-        mainInit.setDecoder(false);
     }
     //Запуск уведомления
-    private void initNotifications(){
+    private void initNotify(){
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -154,6 +177,12 @@ public class RadioService extends Service {
     //Хранение режима
     public void setMode(int mode){
         modeStatic = mode;
+    }
+    //Перезапуск аудиотрека
+    public void resetAudio(){
+        mainInit.paused();
+        initAudio();
+        mainInit.setAudioTrack(audioTrack);
     }
     //Статические методы для выдачи параметров при восстановлении окна при запущенной службе
     public static int getModeStatic(){
