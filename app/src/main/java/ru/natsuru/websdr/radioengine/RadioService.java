@@ -23,7 +23,6 @@ import android.os.IBinder;
 import android.widget.RemoteViews;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import ru.natsuru.websdr.R;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -48,7 +47,8 @@ public class RadioService extends Service {
     private MainInit mainInit;
     private final IBinder binder = new ServiceGetter();
     private final String CHANNEL_ID = "radio";
-    private final int SAMPLE_RATE_LOW = 7119;
+    private final int FACTOR = 81; //Поправочная константа
+    private final int SAMPLE_RATE_LOW = 7119 + FACTOR;
     private final int SAMPLE_RATE = SAMPLE_RATE_LOW * 2;
     private final int FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private final int MASK = AudioFormat.CHANNEL_OUT_MONO;

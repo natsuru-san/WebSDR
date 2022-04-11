@@ -54,6 +54,11 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            storage = new Storage(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         freqText = 0 + getString(R.string.khz);
         setContentView(R.layout.main);
         initView();
@@ -212,7 +217,6 @@ public class Main extends AppCompatActivity {
     }
     private void updateMemoriesList() throws IOException, JSONException {
         memories = new ArrayList<>();
-        storage = new Storage(this);
         JSONArray stations = storage.load(false);
         for(int i = 0; i < stations.length(); i++){
             JSONObject station = stations.getJSONObject(i);
