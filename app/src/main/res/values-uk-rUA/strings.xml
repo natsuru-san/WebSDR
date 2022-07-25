@@ -5,10 +5,6 @@
     <string name="Depth8k">8 кГц</string>
     <string name="Depth16k">16 кГц</string>
     <string name="Depth">Ширина повені</string>
-    <string name="AM">АМ</string>
-    <string name="FM">ЧМ</string>
-    <string name="USB">Верхня</string>
-    <string name="LSB">Нижня</string>
     <string name="Squelch">\"Вислиз\"</string>
     <string name="Autonotch">Рівняння</string>
     <string name="NoiseReduction">Шум придушення</string>

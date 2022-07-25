@@ -187,53 +187,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/DownFreqButton"
                 tools:ignore="TextContrastCheck" />
 
-            <Button
-                android:id="@+id/DepthBtn16K"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:fontFamily="@font/amiko"
-                android:padding="0dp"
-                android:text="@string/Depth16k"
-                android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/ModulationGroup"
-                app:layout_constraintEnd_toEndOf="@+id/ModulationGroup"
-                tools:ignore="TextContrastCheck" />
-
-            <Button
-                android:id="@+id/DepthBtn8K"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/amiko"
-                android:padding="0dp"
-                android:text="@string/Depth8k"
-                android:textAllCaps="false"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:iconPadding="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/DepthBtn16K"
-                app:layout_constraintEnd_toEndOf="@+id/DepthBtn16K"
-                app:layout_constraintStart_toStartOf="@+id/DepthBtn16K"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/DepthValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/amiko"
-                android:text="@string/Depth"
-                android:textColor="?attr/colorSecondary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/DepthBtn8K"
-                app:layout_constraintEnd_toEndOf="@+id/DepthBtn8K" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout

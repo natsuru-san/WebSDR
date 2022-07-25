@@ -8,10 +8,10 @@
     <string name="Depth8k">8 KHz</string>
     <string name="Depth16k">16 KHz</string>
     <string name="Depth">Depth audio</string>
-    <string name="AM">AM</string>
-    <string name="FM">FM</string>
-    <string name="USB">USB</string>
-    <string name="LSB">LSB</string>
+    <string name="AM" translatable="false">AM</string>
+    <string name="FM" translatable="false">FM</string>
+    <string name="USB" translatable="false">USB</string>
+    <string name="LSB" translatable="false">LSB</string>
     <string name="CW" translatable="false">CW</string>
     <string name="Squelch">Squelch</string>
     <string name="Autonotch">Autonotch</string>

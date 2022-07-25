@@ -5,10 +5,6 @@
     <string name="Depth8k">8 кГц</string>
     <string name="Depth16k">16 кГц</string>
     <string name="Depth">Ширина потока</string>
-    <string name="AM">АМ</string>
-    <string name="FM">ЧМ</string>
-    <string name="USB">Верх. бок</string>
-    <string name="LSB">Ниж. бок</string>
     <string name="Squelch">\"Скольжение\"</string>
     <string name="Autonotch">Уравнение</string>
     <string name="NoiseReduction">Шумодав</string>

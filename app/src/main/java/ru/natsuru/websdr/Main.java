@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import ru.natsuru.websdr.radioengine.RadioService;
+import ru.natsuru.websdr.radioengine.util.Repository;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Main extends AppCompatActivity {
@@ -168,8 +169,8 @@ public class Main extends AppCompatActivity {
     private void startRadioService(){
         tuner = new Tuner();
         Intent start = new Intent(this, RadioService.class);
-        if(RadioService.isRunning()){
-            freqText = RadioService.getFreqStatic() + getString(R.string.khz);
+        if(Repository.isRunning()){
+            freqText = Repository.getFreq() + getString(R.string.khz);
             currentFreq.setText(freqText);
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

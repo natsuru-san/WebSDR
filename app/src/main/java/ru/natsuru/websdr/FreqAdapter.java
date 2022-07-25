@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
+import ru.natsuru.websdr.radioengine.util.Repository;
+
 public class FreqAdapter extends RecyclerView.Adapter<FreqAdapter.ViewHolder> {
     private final ArrayList<FreqStore> bands;
     private final LayoutInflater inflater;
@@ -28,8 +30,9 @@ public class FreqAdapter extends RecyclerView.Adapter<FreqAdapter.ViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull FreqAdapter.ViewHolder holder, int position) {
-        double currentFreq = (holder.getAdapterPosition() - 28990) * (-1);
-        tuner.setFreq(currentFreq);
+        float currentFreq = (holder.getAdapterPosition() - 28990) * (-1);
+        Repository.setFreq(currentFreq);
+        tuner.setFreq();
         FreqStore band = bands.get(position);
         holder.freqInstanceView.setText(String.valueOf(band.getFreqInstance()));
     }
