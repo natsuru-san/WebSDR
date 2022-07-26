@@ -1,14 +1,16 @@
 //Copyright by Natsuru-san
 
-package ru.natsuru.websdr;
+package ru.natsuru.websdr.radioengine.util;
 
 public class MemoryCell {
+
     private final int mode;
-    private final double minBorder;
-    private final double maxBorder;
-    private final double freq;
+    private final float minBorder;
+    private final float maxBorder;
+    private final float freq;
     private final int id;
-    public MemoryCell(int mode, double minBorder, double maxBorder, double freq, int id) {
+
+    public MemoryCell(int mode, float minBorder, float maxBorder, float freq, int id) {
         this.mode = mode;
         this.minBorder = minBorder;
         this.maxBorder = maxBorder;
@@ -18,13 +20,13 @@ public class MemoryCell {
     public int getMode() {
         return mode;
     }
-    public double getMinBorder() {
+    public float getMinBorder() {
         return minBorder;
     }
-    public double getMaxBorder() {
+    public float getMaxBorder() {
         return maxBorder;
     }
-    public double getFreq() {
+    public float getFreq() {
         return freq;
     }
     public int getId(){

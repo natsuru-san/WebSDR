@@ -26,15 +26,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import ru.natsuru.websdr.radioengine.RadioService;
-import ru.natsuru.websdr.radioengine.util.Repository;
+import ru.natsuru.websdr.radioengine.storage.ServersStorage;
+import ru.natsuru.websdr.radioengine.storage.SettingsStorage;
+import ru.natsuru.websdr.radioengine.storage.StationsStorage;
+import ru.natsuru.websdr.radioengine.storage.Storage;
+import ru.natsuru.websdr.radioengine.util.JsonUtil;
+import ru.natsuru.websdr.radioengine.util.MemoryCell;
+import ru.natsuru.websdr.radioengine.util.NullNode;
+import ru.natsuru.websdr.radioengine.util.repo.Repository;
+import ru.natsuru.websdr.service.RunningService;
+import ru.natsuru.websdr.ui.components.abstractRecyclers.Recycler;
+import ru.natsuru.websdr.ui.main.recycler.MemoryRecycler;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Main extends AppCompatActivity {
     private double lastFreq = 0;
-    private Storage storage;
-    private RadioService radioService;
+    private Storage stations;
+    private Storage settings;
+    private Storage servers;
     private boolean settingsShow = false;
     private boolean asService = false;
     private String freqText;
@@ -50,16 +61,13 @@ public class Main extends AppCompatActivity {
     private SwitchCompat asServiceBtn;
     private RecyclerView memoriesRV;
     private FrameLayout containerMemory;
-    @SuppressWarnings("FieldMayBeFinal")
-    private ArrayList<MemoryCell> memories = new ArrayList<>();
+    private List<MemoryCell> memories;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            storage = new Storage(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        stations = new StationsStorage(this);
+        settings = new SettingsStorage(this);
+        servers = new ServersStorage(this);
         freqText = 0 + getString(R.string.khz);
         setContentView(R.layout.main);
         initView();
@@ -77,7 +85,7 @@ public class Main extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             RadioService.ServiceGetter serviceGetter = (RadioService.ServiceGetter) service;
-            radioService = serviceGetter.getRadio();
+            RunningService.setService(serviceGetter.getRadio());
             readyTuner();
         }
         @Override
@@ -102,7 +110,7 @@ public class Main extends AppCompatActivity {
                 }
                 break;
             case R.id.ExitBtn:
-                radioService.closeRadio();
+                RunningService.closeRadio();
                 unbindService(serviceConnection);
                 finish();
                 break;
@@ -111,7 +119,7 @@ public class Main extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.RestartBtn:
-                radioService.closeRadio();
+                RunningService.closeRadio();
                 unbindService(serviceConnection);
                 Intent start = new Intent(this, RadioService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -163,7 +171,6 @@ public class Main extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.ContainerTuner, tuner).commit();
         tuner.setMain(this);
-        tuner.setService(radioService);
     }
     //Запускаем службу радио
     private void startRadioService(){
@@ -184,13 +191,13 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         if(!asService){
-            radioService.closeRadio();
+            RunningService.closeRadio();
             finish();
         }
         super.onDestroy();
     }
-    protected void setFreqView(double freq){
-        freqText = freq + getString(R.string.khz);
+    protected void setFreqView(){
+        freqText = Repository.getFreq() + getString(R.string.khz);
         currentFreq.setText(freqText);
     }
     protected void setSettingsShow(boolean settingsShow){
@@ -205,7 +212,7 @@ public class Main extends AppCompatActivity {
                 containerMemory.setVisibility(View.INVISIBLE);
             }else{
                 if(!asService){
-                    radioService.closeRadio();
+                    RunningService.closeRadio();
                     unbindService(serviceConnection);
                     finish();
                 }
@@ -217,59 +224,51 @@ public class Main extends AppCompatActivity {
         Toast.makeText(this, getString(R.string.Notation), Toast.LENGTH_LONG).show();
     }
     private void updateMemoriesList() throws IOException, JSONException {
-        memories = new ArrayList<>();
-        JSONArray stations = storage.load(false);
-        for(int i = 0; i < stations.length(); i++){
-            JSONObject station = stations.getJSONObject(i);
-            int mode = Integer.parseInt(station.getString("Mode"));
-            double minBorder = Double.parseDouble(station.getString("MinBorder"));
-            double maxBorder = Double.parseDouble(station.getString("MaxBorder"));
-            double freq = Double.parseDouble(station.getString("Freq"));
-            memories.add(new MemoryCell(mode, minBorder, maxBorder, freq, i));
-        }
+        memories = JsonUtil.getListStations(stations.load());
         updateAdapter();
     }
-    protected void updateAdapter(){
+    protected void updateAdapter() {
+        Recycler<Main, List<MemoryCell>, NullNode> recycler = new MemoryRecycler(this, this, memories, null);
         memoriesRV.setLayoutManager(new LinearLayoutManager(this));
-        memoriesRV.setAdapter(new MemoryAdapter(this, memories, this));
+        memoriesRV.setAdapter(recycler);
     }
-    protected void tuneFromMemory(@NonNull MemoryCell cell){
-        double freq = cell.getFreq();
+    public void tuneFromMemory(@NonNull MemoryCell cell) {
+        float freq = cell.getFreq();
         if(lastFreq > freq){
             freq -= 19;
         }
         tuner.setMemory(freq, cell.getMinBorder(), cell.getMaxBorder(), cell.getMode());
         lastFreq = freq;
     }
-    protected double getLastFreq(){
+    protected double getLastFreq() {
         return lastFreq;
     }
-    protected void deleteFromMemory(@NonNull MemoryCell cell){
+    public void deleteFromMemory(@NonNull MemoryCell cell) {
         try {
-            JSONArray stations = storage.load(false);
-            stations.remove(cell.getId());
-            storage.save(stations, false);
+            JSONArray list = stations.load();
+            list.remove(cell.getId());
+            stations.save(list);
             updateMemoriesList();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
     }
     private void addToMemory() throws IOException, JSONException {
-        JSONArray stations = storage.load(false);
-        stations.put(tuner.getMemory());
-        storage.save(stations, false);
+        JSONArray list = stations.load();
+        list.put(JsonUtil.getCurrentStation());
+        stations.save(list);
         updateMemoriesList();
     }
     private void setOptions() throws JSONException, IOException {
         JSONObject jObject = new JSONObject();
         jObject.put("AsService", asService);
-        JSONArray options = storage.load(true);
+        JSONArray options = settings.load();
         options.remove(0);
         options.put(0, jObject);
-        storage.save(options, true);
+        settings.save(options);
     }
     private void getOptions() throws JSONException, IOException {
-        JSONArray options = storage.load(true);
+        JSONArray options = settings.load();
         JSONObject jObject = options.getJSONObject(0);
         asService = jObject.getBoolean("AsService");
         asServiceBtn.setChecked(asService);

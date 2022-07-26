@@ -3,7 +3,7 @@ package ru.natsuru.websdr.radioengine.linker;
 import android.media.AudioTrack;
 import com.neovisionaries.ws.client.WebSocketException;
 import ru.natsuru.websdr.radioengine.catcher.Catcher;
-import ru.natsuru.websdr.radioengine.util.Repository;
+import ru.natsuru.websdr.radioengine.util.repo.Repository;
 
 public class AudioLinker extends Linker<AudioTrack> {
 

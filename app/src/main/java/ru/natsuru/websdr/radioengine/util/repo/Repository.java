@@ -1,15 +1,15 @@
 //Репозиторий состояний. Хранит текущие параметры движка
 
-package ru.natsuru.websdr.radioengine.util;
+package ru.natsuru.websdr.radioengine.util.repo;
 
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import ru.natsuru.websdr.radioengine.util.Bucket;
 
 public class Repository {
     //Параметры соединения
@@ -65,10 +65,10 @@ public class Repository {
     public static final int BUFFER_SIZE = AudioTrack.getMinBufferSize(SAMPLE_RATE, MASK, FORMAT) * 2;
 
     //Лимиты ширины принимаемого потока
-    private static final float MAX_BORDER_LIMIT = 6;
-    private static final float MIN_BORDER_LIMIT = -6;
-    private static final float MAX_BORDER_LIMIT_OUT = 0;
-    private static final float MIN_BORDER_LIMIT_OUT = 0;
+    static final float MAX_BORDER_LIMIT = 6;
+    static final float MIN_BORDER_LIMIT = -6;
+    static final float MAX_BORDER_LIMIT_OUT = 0;
+    static final float MIN_BORDER_LIMIT_OUT = 0;
 
     public static void setAccept(String accept) {
         Repository.accept = accept;
@@ -160,8 +160,8 @@ public class Repository {
 
     public static void setMinBorder(float minBorder) {
         Repository.minBorder = minBorder;
-        verifyLimit();
-        checkDepth();
+        Logic.verifyLimit();
+        Logic.checkDepth();
     }
 
     public static float getMaxBorder() {
@@ -170,8 +170,8 @@ public class Repository {
 
     public static void setMaxBorder(float maxBorder) {
         Repository.maxBorder = maxBorder;
-        verifyLimit();
-        checkDepth();
+        Logic.verifyLimit();
+        Logic.checkDepth();
     }
 
     public static float getFreq() {
@@ -280,100 +280,13 @@ public class Repository {
     //Режим модуляции
     public static void setMode(int mode){
         Repository.mode = mode;
-        switch (mode){
-            case 0:
-                modulation = 4;
-                minBorder = -5f;
-                maxBorder = 5f;
-                audioDepth = false;
-                break;
-            case 1:
-                modulation = 1;
-                minBorder = -4.5f;
-                maxBorder = 4.5f;
-                audioDepth = true;
-                break;
-            case 2:
-                modulation = 1;
-                minBorder = -2.7f;
-                maxBorder = -0.3f;
-                audioDepth = true;
-                break;
-            case 3:
-                modulation = 1;
-                minBorder = 0.3f;
-                maxBorder = 2.7f;
-                audioDepth = true;
-                break;
-            case 4:
-                modulation = 1;
-                minBorder = -0.95f;
-                maxBorder = -0.55f;
-                audioDepth = false;
-                break;
-        }
-        checkDepth();
+        Logic.prepareMode();
+        Logic.checkDepth();
     }
 
-    private static void checkDepth() {
-        if (mode == 0) {
-            audioDepth = false;
-        } else {
-            audioDepth = !(minBorder > -4.0f) && !(maxBorder < 4.0f);
-        }
-    }
-
-    //Проверка предела увеличения канала
-    private static void verifyLimit(){
-        if(maxBorder > MAX_BORDER_LIMIT){
-            maxBorder = MAX_BORDER_LIMIT;
-        }
-        if(maxBorder < MAX_BORDER_LIMIT_OUT){
-            maxBorder = MAX_BORDER_LIMIT_OUT;
-        }
-        if(minBorder < MIN_BORDER_LIMIT){
-            minBorder = MIN_BORDER_LIMIT;
-        }
-        if(minBorder > MIN_BORDER_LIMIT_OUT){
-            minBorder = MIN_BORDER_LIMIT_OUT;
-        }
-    }
-
-    public static void setWidthAStream(boolean vector){
-        switch (mode){
-            case 0:
-            case 1:
-                if(vector){
-                    minBorder = minBorder - 0.5f;
-                    maxBorder = maxBorder + 0.5f;
-                }else{
-                    minBorder = minBorder + 0.5f;
-                    maxBorder = maxBorder - 0.5f;
-                }
-                break;
-            case 2:
-                if(vector){
-                    minBorder = minBorder - 0.1f;
-                }else{
-                    minBorder = minBorder + 0.1f;
-                }
-                break;
-            case 3:
-                if(vector){
-                    maxBorder = maxBorder + 0.1f;
-                }else{
-                    maxBorder = maxBorder - 0.1f;
-                }
-                break;
-            case 4:
-                if(vector){
-                    minBorder = minBorder - 0.05f;
-                }else{
-                    minBorder = minBorder + 0.05f;
-                }
-                break;
-        }
-        verifyLimit();
-        checkDepth();
+    public static void setWidthStream(boolean vector){
+        Logic.widthStream(vector);
+        Logic.verifyLimit();
+        Logic.checkDepth();
     }
 }

@@ -28,7 +28,7 @@ import ru.natsuru.websdr.radioengine.catcher.AudioCatcher;
 import ru.natsuru.websdr.radioengine.catcher.Catcher;
 import ru.natsuru.websdr.radioengine.linker.Linker;
 import ru.natsuru.websdr.radioengine.linker.AudioLinker;
-import ru.natsuru.websdr.radioengine.util.Repository;
+import ru.natsuru.websdr.radioengine.util.repo.Repository;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class RadioService extends Service {
@@ -133,7 +133,7 @@ public class RadioService extends Service {
                     .setContentText(getString(R.string.Annotation))
                     .setContentTitle(getString(R.string.Annotation))
                     .build();
-        }else{
+        } else {
             notification = new Notification();
         }
         startForeground(Service.BIND_IMPORTANT, notification);
@@ -146,7 +146,7 @@ public class RadioService extends Service {
     }
 
     //Вложенный класс для доступа к экземпляру службы
-    public class ServiceGetter extends Binder{
+    public class ServiceGetter extends Binder {
         public RadioService getRadio(){
             return RadioService.this;
         }

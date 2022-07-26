@@ -3,7 +3,7 @@ package ru.natsuru.websdr.radioengine.linker;
 import com.neovisionaries.ws.client.WebSocket;
 import java.io.IOException;
 import ru.natsuru.websdr.radioengine.catcher.Catcher;
-import ru.natsuru.websdr.radioengine.util.Repository;
+import ru.natsuru.websdr.radioengine.util.repo.Repository;
 import ru.natsuru.websdr.radioengine.websocket.SocketFactory;
 import ru.natsuru.websdr.radioengine.websocket.SocketListener;
 
