@@ -6,11 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.List;
-import ru.natsuru.websdr.Main;
+import ru.natsuru.websdr.view.Main;
 import ru.natsuru.websdr.R;
-import ru.natsuru.websdr.radioengine.util.MemoryCell;
-import ru.natsuru.websdr.radioengine.util.NullNode;
-import ru.natsuru.websdr.ui.components.abstractRecyclers.Recycler;
+import ru.natsuru.websdr.model.MemoryCell;
+import ru.natsuru.websdr.util.NullNode;
+import ru.natsuru.websdr.ui.components.recycler.Recycler;
 import ru.natsuru.websdr.ui.main.listener.MainListenerButtons;
 
 public class MemoryRecycler extends Recycler<Main, List<MemoryCell>, NullNode> {

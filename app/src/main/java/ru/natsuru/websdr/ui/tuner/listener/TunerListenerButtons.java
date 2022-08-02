@@ -2,10 +2,9 @@ package ru.natsuru.websdr.ui.tuner.listener;
 
 import android.annotation.SuppressLint;
 import android.view.View;
-
 import ru.natsuru.websdr.R;
-import ru.natsuru.websdr.Tuner;
-import ru.natsuru.websdr.ui.components.abstractListeners.AbstractButtonListener;
+import ru.natsuru.websdr.view.Tuner;
+import ru.natsuru.websdr.ui.components.listener.AbstractButtonListener;
 
 public class TunerListenerButtons extends AbstractButtonListener<Tuner> {
 

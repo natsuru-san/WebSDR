@@ -3,8 +3,8 @@ package ru.natsuru.websdr.ui.main.listener;
 import android.annotation.SuppressLint;
 import android.view.View;
 import ru.natsuru.websdr.R;
-import ru.natsuru.websdr.radioengine.util.MemoryCell;
-import ru.natsuru.websdr.ui.components.abstractListeners.AbstractButtonListener;
+import ru.natsuru.websdr.model.MemoryCell;
+import ru.natsuru.websdr.ui.components.listener.AbstractButtonListener;
 import ru.natsuru.websdr.ui.main.recycler.MemoryRecycler;
 
 public class MainListenerButtons extends AbstractButtonListener<MemoryRecycler> {

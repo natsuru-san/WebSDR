@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 import ru.natsuru.websdr.R;
-import ru.natsuru.websdr.Tuner;
-import ru.natsuru.websdr.radioengine.util.NullNode;
-import ru.natsuru.websdr.radioengine.util.repo.Repository;
-import ru.natsuru.websdr.ui.components.abstractRecyclers.Recycler;
+import ru.natsuru.websdr.view.Tuner;
+import ru.natsuru.websdr.util.NullNode;
+import ru.natsuru.websdr.dao.repository.RepoAudio;
+import ru.natsuru.websdr.ui.components.recycler.Recycler;
 
 public class TunerRecycler extends Recycler<Tuner, List<Integer>, NullNode> {
 
@@ -26,7 +26,7 @@ public class TunerRecycler extends Recycler<Tuner, List<Integer>, NullNode> {
     @Override
     public void actionWithInstanseOfList(Recycler<Tuner, List<Integer>, NullNode>.ViewHolder holder, int position) {
         float currentFreq = (holder.getAdapterPosition() - 28990) * (-1);
-        Repository.setFreq(currentFreq);
+        RepoAudio.setFreq(currentFreq);
         getObjA().setFreq();
         Integer band = getObjB().get(position);
         TextView textView = (TextView) holder.getViewA();
