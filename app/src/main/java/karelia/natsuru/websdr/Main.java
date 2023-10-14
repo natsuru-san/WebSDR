@@ -219,7 +219,7 @@ public class Main extends AppCompatActivity {
         Toast.makeText(this, getString(R.string.Notation), Toast.LENGTH_LONG).show();
     }
     private void updateMemoriesList() throws IOException, JSONException {
-        dataService = new DataServiceImpl(this);
+        dataService = new DataServiceImpl(this, 100);
         memories = dataService.getAllStations();
         updateAdapter();
     }

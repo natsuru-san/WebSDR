@@ -7,6 +7,7 @@ import android.content.Context;
 import java.util.List;
 import karelia.natsuru.websdr.data.entity.Param;
 import karelia.natsuru.websdr.data.entity.Station;
+import karelia.natsuru.websdr.data.exceptions.LimitStationsException;
 import karelia.natsuru.websdr.data.repository.Repository;
 import karelia.natsuru.websdr.data.repository.SettingsRepository;
 import karelia.natsuru.websdr.data.repository.StationRepository;
@@ -22,11 +23,13 @@ public abstract class AbstractDataService implements DataService {
     }
 
     @Override
-    public final void saveStation(Station station) {
+    public final void saveStation(Station station) throws LimitStationsException {
         int count = stationRepository.getAll().size();
         if (count < getLimitStations()) {
             stationRepository.save(station);
+            return;
         }
+        throw new LimitStationsException(getLimitStations(), station);
     }
 
     @Override

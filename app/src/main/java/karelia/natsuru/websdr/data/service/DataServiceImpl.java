@@ -4,15 +4,20 @@
 package karelia.natsuru.websdr.data.service;
 
 import android.content.Context;
+import karelia.natsuru.websdr.data.exceptions.NegativeLimitStations;
 
 public final class DataServiceImpl extends AbstractDataService {
 
-    public DataServiceImpl(Context context) {
+    private final int limit;
+
+    public DataServiceImpl(Context context, int limit) {
         super(context);
+        if (limit <= 0) throw new NegativeLimitStations(limit);
+        this.limit = limit;
     }
 
     @Override
     int getLimitStations() {
-        return 100;
+        return limit;
     }
 }

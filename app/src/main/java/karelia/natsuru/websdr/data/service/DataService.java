@@ -8,7 +8,7 @@ import karelia.natsuru.websdr.data.entity.Param;
 import karelia.natsuru.websdr.data.entity.Station;
 
 public interface DataService {
-    void saveStation(Station station);
+    void saveStation(Station station) throws Exception;
     void deleteStation(long id);
     List<Station> getAllStations();
     void updateParam(Param param);
