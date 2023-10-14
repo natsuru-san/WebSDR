@@ -6,11 +6,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "ru.natsuru.websdr"
-        minSdk 21
+        applicationId 'karelia.natsuru.websdr'
+        minSdk 26
         targetSdk 33
         versionCode 1
-        versionName "1.8.11"
+        versionName '2.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,7 +25,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    namespace 'ru.natsuru.websdr'
+    namespace 'karelia.natsuru.websdr'
     buildToolsVersion '33.0.1'
 }
 
@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.neovisionaries:nv-websocket-client:2.14'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
